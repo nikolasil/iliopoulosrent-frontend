@@ -35,7 +35,13 @@ export default function Reservation() {
               );
             }}
           >
-            <img src="assets/airbnb.png" width="150" height="100" alt="" />
+            <img
+              src="assets/airbnb.png"
+              width="150"
+              height="100"
+              alt=""
+              loading="lazy"
+            />
           </div>
           <div
             className={'platform ' + (isMobile && 'mobile')}
@@ -46,7 +52,13 @@ export default function Reservation() {
               );
             }}
           >
-            <img src="assets/booking.png" width="150" height="100" alt="" />
+            <img
+              src="assets/booking.png"
+              width="150"
+              height="100"
+              alt=""
+              loading="lazy"
+            />
           </div>
           <div
             className={'platform ' + (isMobile && 'mobile')}
@@ -57,7 +69,13 @@ export default function Reservation() {
               );
             }}
           >
-            <img src="assets/vrbo.png" width="150" height="100" alt="" />
+            <img
+              src="assets/vrbo.png"
+              width="150"
+              height="100"
+              alt=""
+              loading="lazy"
+            />
           </div>
         </div>
       </div>

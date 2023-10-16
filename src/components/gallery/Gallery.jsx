@@ -15,6 +15,7 @@ export default function Gallery() {
           showIndex={true}
           showThumbnails={false}
           slideInterval={2000}
+          lazyLoad={true}
         />
       </div>
     </div>
