@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Home Page",
+    "mobileName": "Home",
+    "location": "#intro"
+  },
+  {
+    "name": "Gallery",
+    "mobileName": "Gallery",
+    "location": "#gallery"
+  },
+  {
+    "name": "Reservation",
+    "mobileName": "Reservation",
+    "location": "#reservation"
+  },
+  {
+    "name": "Contact",
+    "mobileName": "Contact",
+    "location": "#contact"
+  }
+]

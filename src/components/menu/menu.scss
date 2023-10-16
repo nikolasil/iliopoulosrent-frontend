@@ -1,0 +1,73 @@
+@import '../../global.scss';
+
+.menu {
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  position: fixed;
+  left: -100vw;
+  z-index: 1000;
+  transition: all 0.5s ease;
+  &.active {
+    left: 0;
+  }
+  .container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+
+    .spacer {
+      width: 50px;
+      background-color: $mainColor;
+    }
+    ul {
+      width: 450px;
+      margin: 0;
+      padding: 0;
+      z-index: 2;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      flex-direction: column;
+      list-style: none;
+      background-color: $mainColor;
+      top: 0;
+      font-size: 30px;
+      font-weight: 300;
+      color: white;
+      border-right: 1px solid $accentColor;
+      border-radius: 0 20% 20% 0;
+      li {
+        margin-bottom: 20px;
+        &:hover {
+          color: $accentColor;
+          transform: translate(10px);
+        }
+        .icon {
+          margin-right: 10px;
+          &:hover {
+            color: $accentColor;
+          }
+        }
+        a {
+          font-size: inherit;
+          color: $mainColor;
+          text-decoration: none;
+          // transition: color 1s ease;
+          &.active {
+            color: white;
+          }
+          &:hover {
+            color: $accentColor;
+          }
+        }
+        &:hover {
+          font-weight: 500;
+        }
+      }
+    }
+    .closer {
+      width: 100%;
+    }
+  }
+}

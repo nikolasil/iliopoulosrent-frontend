@@ -1,0 +1,31 @@
+@import './global.scss';
+@import "~react-image-gallery/styles/scss/image-gallery.scss";
+.app {
+  height: 100vh;
+  .sections {
+    width: 100%;
+    height: calc(100vh - 50px);
+    position: relative;
+    top: 50px;
+    scroll-behavior: smooth;
+    scroll-snap-type: none;
+    scroll-snap-align: unset;
+    &::-webkit-scrollbar {
+      // for all the other broswers
+      display: none;
+    }
+
+    > * {
+      border-bottom: 1px solid $accentColor;
+      width: 100%;
+      // height: calc(100vh - 70px);
+      scroll-snap-align: start;
+    }
+
+    &.mobile {
+      scroll-behavior: smooth;
+      scroll-snap-type: none;
+      scroll-snap-align: unset;
+    }
+  }
+}

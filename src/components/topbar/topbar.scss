@@ -1,0 +1,78 @@
+@import '../../global.scss';
+
+.topbar {
+  margin-bottom: 1px;
+  width: 100%;
+  height: 50px;
+  background-color: white;
+  border-bottom: 1px solid lightgrey;
+  color: $mainColor;
+  position: fixed;
+  top: 0;
+  z-index: 1001;
+  transition: all 0.5s ease;
+  .wrapper {
+    padding: 0px 30px;
+    display: flex;
+    height: 50px;
+    align-items: center;
+    justify-content: space-between;
+    .left {
+      .menuButton {
+        font-size: 40px;
+        cursor: pointer;
+        &:hover {
+          color: $accentColor;
+        }
+      }
+      .closeButton {
+        font-size: 40px;
+        cursor: pointer;
+        &:hover {
+          color: $accentColor;
+        }
+      }
+    }
+    .middle {
+      .logo {
+        font-family: $logoFont;
+        font-size: 30px;
+        font-weight: 700;
+        text-decoration: none;
+        color: inherit;
+        // margin-right: 40px;
+        &:hover {
+          color: $accentColor;
+        }
+      }
+      .small-logo {
+        font-family: $logoFont;
+        font-size: 27px;
+        font-weight: 700;
+        text-decoration: none;
+        color: inherit;
+
+        // margin-right: 40px;
+        &:hover {
+          color: $accentColor;
+        }
+      }
+    }
+    .right {
+      display: flex;
+      align-items: center;
+
+      > * {
+        font-size: 30px;
+        cursor: pointer;
+        &:hover {
+          color: $accentColor;
+        }
+      }
+    }
+  }
+  &.active {
+    background-color: $mainColor;
+    color: white;
+  }
+}
