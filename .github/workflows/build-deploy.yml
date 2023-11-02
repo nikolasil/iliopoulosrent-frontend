@@ -34,4 +34,4 @@ jobs:
             sudo docker stop seasidehouseinneamakri || true
             sudo docker rm seasidehouseinneamakri || true
             sudo docker pull nikolasil/seasidehouseinneamakri || true
-            sudo docker run -d --name seasidehouseinneamakri -p 8080:80 nikolasil/seasidehouseinneamakri:latest
+            sudo docker run -d --name seasidehouseinneamakri -p 8081:80 nikolasil/seasidehouseinneamakri:latest
