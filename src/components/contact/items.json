@@ -1,0 +1,18 @@
+[
+  {
+    "language": "en",
+    "data": {
+      "title": "Contact",
+      "email": "Email",
+      "phone": "Phone"
+    }
+  },
+  {
+    "language": "gr",
+    "data": {
+      "title": "Επικοινωνία",
+      "email": "Ηλεκτρονικό Ταχυδρομείο",
+      "phone": "Τηλέφωνο"
+    }
+  }
+]

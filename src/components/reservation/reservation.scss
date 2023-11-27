@@ -1,13 +1,13 @@
 @import '../../global.scss';
 .reservation {
-  background: linear-gradient(180deg, $backgroundColor2 0%, $backgroundColor3 100%);
-  height: calc(100vh - 50px);
+  background: linear-gradient(180deg, $backgroundColor3 0%, $backgroundColor2 100%);
+  height: calc(100vh - 70px);
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-direction: column;
   &.mobile {
-    height: calc(90vh - 50px);
+    height: calc(90vh - 70px);
   }
   h1{
     color: white;

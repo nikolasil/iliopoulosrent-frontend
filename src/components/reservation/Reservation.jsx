@@ -1,27 +1,26 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import './reservation.scss';
 import { Button } from '@mui/material';
+import items from './items.json';
 import { isMobile } from 'react-device-detect';
-export default function Reservation() {
+export default function Reservation({ language }) {
+  const [list, setList] = useState({});
+  useEffect(() => {
+    setList(items.find((i) => i.language === language.id).data);
+  }, [language]);
   return (
     <div className="reservation" id="reservation">
-      <h1>Reservation</h1>
+      <h1>{list.title}</h1>
       <div className="container">
         {isMobile ? (
           <>
-            <h3>Our accommodation is available for rent all year round.</h3>
-            <h3>
-              You can book your stay by contacting us via phone, email or using
-              any of the platforms below.
-            </h3>
+            <h3>{list.subTitle1}</h3>
+            <h3>{list.subTitle2}</h3>
           </>
         ) : (
           <>
-            <h2>Our accommodation is available for rent all year round.</h2>
-            <h2>
-              You can book your stay by contacting us via phone, email or using
-              any of the platforms below.
-            </h2>
+            <h2>{list.subTitle1}</h2>
+            <h2>{list.subTitle2}</h2>
           </>
         )}
 
@@ -39,7 +38,8 @@ export default function Reservation() {
               src="assets/airbnb.png"
               width="150"
               height="100"
-              alt=""
+              alt="airbnb"
+              title="airbnb"
               loading="lazy"
             />
           </div>
@@ -56,7 +56,8 @@ export default function Reservation() {
               src="assets/booking.png"
               width="150"
               height="100"
-              alt=""
+              alt="booking"
+              title="booking"
               loading="lazy"
             />
           </div>
@@ -73,7 +74,23 @@ export default function Reservation() {
               src="assets/vrbo.png"
               width="150"
               height="100"
-              alt=""
+              alt="vrbo"
+              title="vrbo"
+              loading="lazy"
+            />
+          </div>
+          <div
+            className={'platform ' + (isMobile && 'mobile')}
+            onClick={() => {
+              window.open('https://bnbingreece.com/en/room/10156', '_blank');
+            }}
+          >
+            <img
+              src="assets/bnbingreece.png"
+              width="110"
+              height="110"
+              alt="bnbingreece"
+              title="bnbingreece"
               loading="lazy"
             />
           </div>

@@ -1,12 +1,12 @@
 @import '../../global.scss';
 
 .contact {
-  background: linear-gradient(180deg, $backgroundColor3 0%, $backgroundColor1 100%);
+  background: linear-gradient(180deg, $backgroundColor2 0%, $backgroundColor1 100%);
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-direction: column;
-  height: calc(100vh - 50px);
+  height: calc(100vh - 70px);
   h1 {
     color: white;
     // padding: 25px 25px;

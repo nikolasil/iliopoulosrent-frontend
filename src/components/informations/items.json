@@ -1,0 +1,150 @@
+[
+  {
+    "language": "en",
+    "data": {
+      "title": "Informations",
+      "subTitle": "Our beautiful accommodation offers a relaxing and unforgettable getaway by the sea, just steps away from the pristine shores of a blue-flagged beach. Experience the perfect blend of comfort and tranquility just steps away from the glistening Mediterranean waters. Our thoughtfully curated house welcomes you with a cozy ambiance and ample natural light.",
+      "docs": [
+        {
+          "Id": 1,
+          "Name": "Rooms & Amentities",
+          "Desc": "Seaside house in Nea Makri is equiped with all the goods. From as simple as a laundry machine to an outdoor barbeque. It even has a Jakuzzi!",
+          "DocsOpened": false,
+          "Docs": [
+            {
+              "Id": 1,
+              "Name": "Inside",
+              "Docs": [
+                {
+                  "Id": 1,
+                  "Name": "Kitchen",
+                  "Desc": "The fully equiped kitchen has everything you will need for your vacations.",
+                  "Docs": [
+                    {
+                      "Id": 1,
+                      "Name": "Stove"
+                    },
+                    {
+                      "Id": 2,
+                      "Name": "Kitchen table"
+                    },
+                    {
+                      "Id": 3,
+                      "Name": "Kitchenware",
+                      "Desc": "Plates, glasses, bowls, chopsticks, straws, pans"
+                    }
+                  ]
+                },
+                {
+                  "Id": 2,
+                  "Name": "Bedroom 1",
+                  "Desc": "It is the master bedroom of the house. It has a double bed with plenty of space and a modern design.",
+                  "Docs": [
+                    {
+                      "Id": 1,
+                      "Name": "Βedside table"
+                    },
+                    {
+                      "Id": 2,
+                      "Name": "Closet"
+                    },
+                    {
+                      "Id": 3,
+                      "Name": "Optional baby bed",
+                      "Desc": "Without a charge or fee."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "Id": 2,
+              "Name": "Outside",
+              "Docs": [
+                {
+                  "Id": 1,
+                  "Name": "Jacuzzi",
+                  "Desc": "Ohh yeah! It has a Jacuzzi!"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "language": "gr",
+    "data": {
+      "title": "Πληροφορίες",
+      "subTitle": "Το όμορφα κατάλυμα μας προσφέρει μια χαλαρωτική και αξέχαστη απόδραση δίπλα στη θάλασσα, λίγα βήματα μακριά από τις υπέροχες ακτές μιας βραβευμένης με γαλάζια σημαία παραλίας. Ζήστε τον τέλειο συνδυασμό άνεσης και ηρεμίας λίγα βήματα μακριά από τα αστραφτερά νερά της Μεσογείου. Το προσεγμένο σπίτι μας σας καλωσορίζει με μια ζεστή ατμόσφαιρα και άπλετο φυσικό φως.",
+      "docs": [
+        {
+          "Id": 1,
+          "Name": "Rooms & Amentities",
+          "Desc": "Seaside house in Nea Makri is equiped with all the goods. From as simple as a laundry machine to an outdoor barbeque. It even has a Jakuzzi!",
+          "DocsOpened": false,
+          "Docs": [
+            {
+              "Id": 1,
+              "Name": "Inside",
+              "Docs": [
+                {
+                  "Id": 1,
+                  "Name": "Kitchen",
+                  "Desc": "The fully equiped kitchen has everything you will need for your vacations.",
+                  "Docs": [
+                    {
+                      "Id": 1,
+                      "Name": "Stove"
+                    },
+                    {
+                      "Id": 2,
+                      "Name": "Kitchen table"
+                    },
+                    {
+                      "Id": 3,
+                      "Name": "Kitchenware",
+                      "Desc": "Plates, glasses, bowls, chopsticks, straws, pans"
+                    }
+                  ]
+                },
+                {
+                  "Id": 2,
+                  "Name": "Bedroom 1",
+                  "Desc": "It is the master bedroom of the house. It has a double bed with plenty of space and a modern design.",
+                  "Docs": [
+                    {
+                      "Id": 1,
+                      "Name": "Βedside table"
+                    },
+                    {
+                      "Id": 2,
+                      "Name": "Closet"
+                    },
+                    {
+                      "Id": 3,
+                      "Name": "Optional baby bed",
+                      "Desc": "Without a charge or fee."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "Id": 2,
+              "Name": "Outside",
+              "Docs": [
+                {
+                  "Id": 1,
+                  "Name": "Jacuzzi",
+                  "Desc": "Ohh yeah! It has a Jacuzzi!"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Menu, Close } from '@mui/icons-material';
 import './topbar.scss';
 import { isMobile } from 'react-device-detect';
@@ -30,6 +30,7 @@ export default function Topbar({ menuOpen, setMenuOpen }) {
             Seaside House In Nea Makri
           </a>
         </div>
+
         {!isMobile && <div className="right"></div>}
       </div>
     </div>

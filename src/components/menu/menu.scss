@@ -8,9 +8,11 @@
   left: -100vw;
   z-index: 1000;
   transition: all 0.5s ease;
+
   &.active {
     left: 0;
   }
+
   .container {
     width: 100vw;
     height: 100vh;
@@ -20,11 +22,12 @@
       width: 50px;
       background-color: $mainColor;
     }
+
     ul {
-      width: 450px;
+      width: 600px;
       margin: 0;
       padding: 0;
-      z-index: 2;
+      z-index: 1000;
       display: flex;
       justify-content: center;
       align-items: flex-start;
@@ -37,35 +40,49 @@
       color: white;
       border-right: 1px solid $accentColor;
       border-radius: 0 20% 20% 0;
+      .language-container{
+        display: flex;
+        align-items: center;
+        justify-content: right;
+        width: 100%;
+        padding-bottom: 40px;
+        .language{
+          padding-right: 20px;
+          width: 120px;
+          >* {
+            color: white;
+          }
+        }
+      }
       li {
         margin-bottom: 20px;
+
         &:hover {
           color: $accentColor;
+          cursor: pointer;
           transform: translate(10px);
-        }
-        .icon {
-          margin-right: 10px;
-          &:hover {
+          font-weight: 600;
+
+          >* {
+            cursor: pointer;
             color: $accentColor;
           }
         }
+
+        .icon {
+          margin-right: 10px;
+        }
+
         a {
           font-size: inherit;
           color: $mainColor;
           text-decoration: none;
           // transition: color 1s ease;
-          &.active {
-            color: white;
-          }
-          &:hover {
-            color: $accentColor;
-          }
-        }
-        &:hover {
-          font-weight: 500;
+          color: white;
         }
       }
     }
+
     .closer {
       width: 100%;
     }
