@@ -22,7 +22,8 @@ function App() {
   console.log(localStorage.getItem('language'));
   const [language, setLanguage] = useState(
     storedLanguage != null
-      ? languages.find((i) => i.initials === storedLanguage.initials)
+      ? // ? languages.find((i) => i.initials === storedLanguage.initials)
+        languages.at(0)
       : languages.at(0)
   );
   return (

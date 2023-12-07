@@ -63,7 +63,9 @@ export default function Menu({
             {items.find((i) => i.language === language.id).data
               .languageChangeMessage +
               ' ' +
-              language.desc +" "+ language.initials}
+              language.desc +
+              ' ' +
+              language.initials}
           </Alert>
         </Snackbar>
         <ul>
@@ -75,9 +77,11 @@ export default function Menu({
                 label="Language"
                 onChange={handleChangeLanguage}
               >
-                {languages.map((i) => (
-                  <MenuItem value={i}>{i.desc + ' ' + i.initials}</MenuItem>
-                ))}
+                {languages
+                  .filter((i) => i.initials !== '🇬🇷')
+                  .map((i) => (
+                    <MenuItem value={i}>{i.desc + ' ' + i.initials}</MenuItem>
+                  ))}
               </Select>
             </FormControl>
           </div>
