@@ -20,13 +20,15 @@
   }
   .categories{
     padding: 10px;
-
+    li {
+      padding-left: 20px;
+    }
     .text {
       .MuiListItemText-secondary {
         color: white;
         font-size: 16px;
       }
-      >* {
+      > * {
         font-family: $specialFont;
         font-size: 18px;
         color: $accentColor;

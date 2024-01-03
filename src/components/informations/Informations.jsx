@@ -12,9 +12,9 @@ export default function Informations({ language }) {
     <div className="informations" id="informations">
       <h1>{list.title}</h1>
       <h2>{list.subTitle}</h2>
-      {/* <div className="categories">
+      <div className="categories">
         {list.docs && <Categories docs={list.docs} />}
-      </div> */}
+      </div>
     </div>
   );
 }

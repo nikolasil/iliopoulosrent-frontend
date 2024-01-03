@@ -16,13 +16,10 @@ export default function Categories(props) {
     <div>
       <List component="li" aria-labelledby="nested-list-subheader">
         {docs.map((doc) => {
-          var color = doc.Id % docs.length;
+          var color = doc.Id % 2;
+          console.log(color);
           return (
-            <CustomizedListItem
-              key={doc.Id}
-              doc={doc}
-              color={color === 1 ? true : false}
-            />
+            <CustomizedListItem doc={doc} color={color === 1 ? true : false} />
           );
         })}
       </List>
@@ -51,31 +48,27 @@ function CustomizedListItem(props) {
           primary={doc.Id + '. ' + doc.Name}
           secondary={doc.Desc}
         />
-
-        {open ? <ExpandLess /> : <ExpandMore />}
+        {doc.Docs != null && (open ? <ExpandLess /> : <ExpandMore />)}
       </ListItem>
-      <Collapse key={doc.Docs.Id} in={open} timeout="auto" unmountOnExit>
+      <Collapse key={doc.Id} in={open} timeout="auto" unmountOnExit>
         <List className={'list'} component="li" disablePadding key={doc.Id}>
-          {doc.Docs.map((docInner) => {
-            return (
-              <ListItem disableRipple button key={docInner.Id}>
-                {docInner.Docs != null ? (
-                  <CustomizedListItem
-                    key={docInner.Id}
-                    doc={docInner}
-                    color={!color}
-                  />
-                ) : (
-                  <ListItemText
-                    className="text"
-                    key={docInner.Id}
-                    primary={docInner.Id + '. ' + docInner.Name}
-                    secondary={docInner.Desc}
-                  />
-                )}
-              </ListItem>
-            );
-          })}
+          {doc.Docs != null &&
+            doc.Docs.map((docInner) => {
+              return (
+                <ListItem disableRipple button key={docInner.Id}>
+                  {docInner.Docs != null ? (
+                    <CustomizedListItem doc={docInner} color={!color} />
+                  ) : (
+                    <ListItemText
+                      className="text"
+                      key={docInner.Id}
+                      primary={docInner.Id + '. ' + docInner.Name}
+                      secondary={docInner.Desc}
+                    />
+                  )}
+                </ListItem>
+              );
+            })}
         </List>
       </Collapse>
       <Divider />

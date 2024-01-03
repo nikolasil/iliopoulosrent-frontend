@@ -7,66 +7,94 @@
       "docs": [
         {
           "Id": 1,
-          "Name": "Rooms & Amentities",
-          "Desc": "Seaside house in Nea Makri is equiped with all the goods. From as simple as a laundry machine to an outdoor barbeque. It even has a Jakuzzi!",
-          "DocsOpened": false,
+          "Name": "JACUZZI ..??",
+          "Desc": "YES..! The property has a 5 seater Jacuzzi for a luxurious vacation."
+        },
+        {
+          "Id": 2,
+          "Name": "Infrants",
+          "Desc": "A baby grip, a baby high chair and a baby bath are provided after demand with no extra charge."
+        },
+        {
+          "Id": 3,
+          "Name": "Rooms",
           "Docs": [
             {
               "Id": 1,
-              "Name": "Inside",
-              "Docs": [
-                {
-                  "Id": 1,
-                  "Name": "Kitchen",
-                  "Desc": "The fully equiped kitchen has everything you will need for your vacations.",
-                  "Docs": [
-                    {
-                      "Id": 1,
-                      "Name": "Stove"
-                    },
-                    {
-                      "Id": 2,
-                      "Name": "Kitchen table"
-                    },
-                    {
-                      "Id": 3,
-                      "Name": "Kitchenware",
-                      "Desc": "Plates, glasses, bowls, chopsticks, straws, pans"
-                    }
-                  ]
-                },
-                {
-                  "Id": 2,
-                  "Name": "Bedroom 1",
-                  "Desc": "It is the master bedroom of the house. It has a double bed with plenty of space and a modern design.",
-                  "Docs": [
-                    {
-                      "Id": 1,
-                      "Name": "Βedside table"
-                    },
-                    {
-                      "Id": 2,
-                      "Name": "Closet"
-                    },
-                    {
-                      "Id": 3,
-                      "Name": "Optional baby bed",
-                      "Desc": "Without a charge or fee."
-                    }
-                  ]
-                }
-              ]
+              "Name": "Master Bedroom",
+              "Desc": "The first bedroom is furnished with a comfortable double bed. The mattresses are orthopedic with independent springs and memory foam, and the sheets and the towels are 100% cotton."
             },
             {
               "Id": 2,
-              "Name": "Outside",
-              "Docs": [
-                {
-                  "Id": 1,
-                  "Name": "Jacuzzi",
-                  "Desc": "Ohh yeah! It has a Jacuzzi!"
-                }
-              ]
+              "Name": "Second Bedroom",
+              "Desc": "The second bedroom features two single beds that can be combined into a double bed. The mattresses are orthopedic with independent springs and memory foam, and the sheets and the towels are 100% cotton."
+            },
+            {
+              "Id": 3,
+              "Name": "Bathroom",
+              "Desc": "The accommodation features a modern bathroom equipped with a hydro-massage column, ensuring a luxurious bathing experience. Also has a washing machine."
+            },
+            {
+              "Id": 4,
+              "Name": "Living Room",
+              "Desc": "After a day of exploration, relax in the comfortable living room, designed with care to create a warm and inviting atmosphere for your rest. The sofa features an extra bed for a fifth person."
+            },
+            {
+              "Id": 5,
+              "Name": "Kitchen",
+              "Desc": "Our fully equipped kitchen features modern appliances and has everything you need to prepare delicious meals. Whether you're a cooking enthusiast or simply prefer homemade dishes during your stay, the kitchen caters to all your needs."
+            },
+            {
+              "Id": 6,
+              "Name": "Garden",
+              "Desc": "In the garden there is a barbeque, an outdoor dining table and sofa."
+            }
+          ]
+        },
+        {
+          "Id": 4,
+          "Name": "Amentities",
+          "Docs": [
+            {
+              "Id": 1,
+              "Name": "Cooling & Heating",
+              "Desc": "Air conditioning in all rooms and abundant hot water provided by a solar water heater."
+            },
+            {
+              "Id": 2,
+              "Name": "Parking lot",
+              "Desc": "Single space parking lot with roof. There are also available several public parking spaces besides the street."
+            },
+            {
+              "Id": 3,
+              "Name": "Desk",
+              "Desc": "For any work or study needs."
+            },
+            {
+              "Id": 4,
+              "Name": "Curtains & Shutters",
+              "Desc": "To ensure a serene atmosphere, the accommodation features blackout curtains and electric shutters."
+            },
+            {
+              "Id": 5,
+              "Name": "Infrants",
+              "Desc": "A baby grip, a baby high chair and a baby bath are provided after demand with no extra charge."
+            }
+          ]
+        },
+        {
+          "Id": 5,
+          "Name": "Distances from landmarks",
+          "Docs": [
+            {
+              "Id": 1,
+              "Name": "Athens International Airport (ATH)",
+              "Desc": "35 minutes ~ 25km."
+            },
+            {
+              "Id": 2,
+              "Name": "Rafina port",
+              "Desc": "20 minutes ~ 13km."
             }
           ]
         }
@@ -77,74 +105,8 @@
     "language": "gr",
     "data": {
       "title": "Πληροφορίες",
-      "subTitle": "Το όμορφα κατάλυμα μας προσφέρει μια χαλαρωτική και αξέχαστη απόδραση δίπλα στη θάλασσα, λίγα βήματα μακριά από τις υπέροχες ακτές μιας βραβευμένης με γαλάζια σημαία παραλίας. Ζήστε τον τέλειο συνδυασμό άνεσης και ηρεμίας λίγα βήματα μακριά από τα αστραφτερά νερά της Μεσογείου. Το προσεγμένο σπίτι μας σας καλωσορίζει με μια ζεστή ατμόσφαιρα και άπλετο φυσικό φως.",
-      "docs": [
-        {
-          "Id": 1,
-          "Name": "Rooms & Amentities",
-          "Desc": "Seaside house in Nea Makri is equiped with all the goods. From as simple as a laundry machine to an outdoor barbeque. It even has a Jakuzzi!",
-          "DocsOpened": false,
-          "Docs": [
-            {
-              "Id": 1,
-              "Name": "Inside",
-              "Docs": [
-                {
-                  "Id": 1,
-                  "Name": "Kitchen",
-                  "Desc": "The fully equiped kitchen has everything you will need for your vacations.",
-                  "Docs": [
-                    {
-                      "Id": 1,
-                      "Name": "Stove"
-                    },
-                    {
-                      "Id": 2,
-                      "Name": "Kitchen table"
-                    },
-                    {
-                      "Id": 3,
-                      "Name": "Kitchenware",
-                      "Desc": "Plates, glasses, bowls, chopsticks, straws, pans"
-                    }
-                  ]
-                },
-                {
-                  "Id": 2,
-                  "Name": "Bedroom 1",
-                  "Desc": "It is the master bedroom of the house. It has a double bed with plenty of space and a modern design.",
-                  "Docs": [
-                    {
-                      "Id": 1,
-                      "Name": "Βedside table"
-                    },
-                    {
-                      "Id": 2,
-                      "Name": "Closet"
-                    },
-                    {
-                      "Id": 3,
-                      "Name": "Optional baby bed",
-                      "Desc": "Without a charge or fee."
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "Id": 2,
-              "Name": "Outside",
-              "Docs": [
-                {
-                  "Id": 1,
-                  "Name": "Jacuzzi",
-                  "Desc": "Ohh yeah! It has a Jacuzzi!"
-                }
-              ]
-            }
-          ]
-        }
-      ]
+      "subTitle": "Our beautiful accommodation offers a relaxing and unforgettable getaway by the sea, just steps away from the pristine shores of a blue-flagged beach. Experience the perfect blend of comfort and tranquility just steps away from the glistening Mediterranean waters. Our thoughtfully curated house welcomes you with a cozy ambiance and ample natural light.",
+      "docs": []
     }
   }
 ]

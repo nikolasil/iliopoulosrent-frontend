@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './gallery.scss';
 import ImageGallery from 'react-image-gallery';
 import items from './items.json';
-import photos from './photos.json';
+import photos from './photos2.json';
 import { isMobile } from 'react-device-detect';
 
 export default function Gallery({ language }) {
