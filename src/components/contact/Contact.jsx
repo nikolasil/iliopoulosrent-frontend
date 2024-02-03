@@ -3,6 +3,9 @@ import './contact.scss';
 import items from './items.json';
 import { isMobile } from 'react-device-detect';
 import CircularProgress from '@mui/material/CircularProgress';
+import { Facebook, Instagram, YouTube } from '@mui/icons-material';
+import { SocialIcon } from 'react-social-icons';
+
 export default function Contact({ language }) {
   const [iframeLoading, setIframeLoading] = useState(true);
   const [list, setList] = useState({});
@@ -32,6 +35,15 @@ export default function Contact({ language }) {
           <h2>
             {list.phone}: <a href="tel:6948184286">6948184286</a>
           </h2>
+          <h2>Social Media</h2>
+          <div>
+            {list.socialMedia &&
+              list.socialMedia.map((i) => {
+                return (
+                  <SocialIcon className="icon" label={i.name} url={i.link} />
+                );
+              })}
+          </div>
         </div>
       </div>
       <div></div>

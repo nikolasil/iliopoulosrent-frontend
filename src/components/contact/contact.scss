@@ -38,6 +38,17 @@
           font-family: $specialFont;
         }
       }
+      div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        
+        .icon {
+          margin-top: 10px;
+          margin-right: 10px;
+        }
+      }
     }
   }
 }
