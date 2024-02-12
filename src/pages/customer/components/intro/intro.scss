@@ -1,7 +1,8 @@
-@import '../../global.scss';
+@import '../../../../global.scss';
+
 .intro {
   // background-color: $mainColorFaded10;
-  background: url("../../../public/assets/background.svg");
+  background: url("../../../../../public/assets/background.svg");
   background-size: cover;
   height: calc(100vh - 70px);
   display: flex;

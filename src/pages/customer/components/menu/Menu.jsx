@@ -108,7 +108,10 @@ export default function Menu({
               ) : (
                 ''
               )}
-              <a href={i.location} class={'' + (menuOpen && 'active')}>
+              <a
+                href={i.location}
+                class={'' + (menuOpen && 'active')}
+              >
                 {!isMobile ? i.name : i.mobileName}
               </a>
             </li>
