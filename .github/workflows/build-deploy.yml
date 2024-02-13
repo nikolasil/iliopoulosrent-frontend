@@ -1,4 +1,4 @@
-name: Push to Docker Hub
+name: Deploy Pipeline
 
 on:
   push:
@@ -21,9 +21,9 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Build the Docker image
-        run: docker buildx build --platform linux/arm64/v8 . --load --file Dockerfile --tag nikolasil/seasidehouseinneamakri:latest
+        run: docker buildx build --platform linux/arm64/v8 . --load --file Dockerfile --tag nikolasil/iliopoulosrent-frontend:latest
       - name: Push Docker image to Docker Hub
-        run: docker push nikolasil/seasidehouseinneamakri:latest
+        run: docker push nikolasil/iliopoulosrent-frontend:latest
       - name: Connect to ec2 instance and deploy
         uses: appleboy/ssh-action@v1.0.0
         with:
@@ -31,7 +31,7 @@ jobs:
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_PRIVATE_KEY }}
           script: |
-            sudo docker stop seasidehouseinneamakri || true
-            sudo docker rm seasidehouseinneamakri || true
-            sudo docker pull nikolasil/seasidehouseinneamakri || true
-            sudo docker run -d --name seasidehouseinneamakri -p 8081:80 nikolasil/seasidehouseinneamakri:latest
+            sudo docker stop iliopoulosrent-frontend || true
+            sudo docker rm iliopoulosrent-frontend || true
+            sudo docker pull nikolasil/iliopoulosrent-frontend || true
+            sudo docker run -d --name iliopoulosrent-frontend -p 8081:80 nikolasil/iliopoulosrent-frontend:latest
