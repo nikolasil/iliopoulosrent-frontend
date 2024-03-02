@@ -1,222 +1,30 @@
-import React, { createRef, useEffect, useRef, useState } from 'react';
+import React, {  useEffect, useRef, useState } from 'react';
 import './gallery.scss';
 import items from './items.json';
-
+import photos from './photos.json';
 import { isMobile } from 'react-device-detect';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import { useTransition, animated } from 'react-spring';
 export default function Gallery({ language }) {
   const [list, setList] = useState({});
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
-  const [thumbnailRange, setThumbnailRange] = useState([0, 3]);
-  const photos = [
-    {
-      path: 'assets/gallery2/MANTHOS-01.jpg',
-      nodeRef: createRef(null),
-    },
-    {
-      path: 'assets/gallery2/MANTHOS-02.jpg',
-      nodeRef: createRef(null),
-    },
-    {
-      path: 'assets/gallery2/MANTHOS-03.jpg',
-      nodeRef: createRef(null),
-    },
-    {
-      path: 'assets/gallery2/MANTHOS-04.jpg',
-      nodeRef: createRef(null),
-    },
-    {
-      path: 'assets/gallery2/MANTHOS-05.jpg',
-      nodeRef: createRef(null),
-    },
-    {
-      path: 'assets/gallery2/MANTHOS-06.jpg',
-      nodeRef: createRef(null),
-    },
-    {
-      path: 'assets/gallery2/MANTHOS-07.jpg',
-      nodeRef: createRef(null),
-    },
-    {
-      path: 'assets/gallery2/MANTHOS-08.jpg',
-      nodeRef: createRef(null),
-    },
-    {
-      path: 'assets/gallery2/MANTHOS-09.jpg',
-      nodeRef: createRef(null),
-    },
-    {
-      path: 'assets/gallery2/MANTHOS-10.jpg',
-      nodeRef: createRef(null),
-    },
-    {
-      path: 'assets/gallery2/MANTHOS-11.jpg',
-      nodeRef: createRef(null),
-    },
-    {
-      path: 'assets/gallery2/MANTHOS-12.jpg',
-      nodeRef: createRef(null),
-    },
-    {
-      path: 'assets/gallery2/MANTHOS-13.jpg',
-      nodeRef: createRef(null),
-    },
-    {
-      path: 'assets/gallery2/MANTHOS-14.jpg',
-      nodeRef: createRef(null),
-    },
-    {
-      path: 'assets/gallery2/MANTHOS-15.jpg',
-      nodeRef: createRef(null),
-    },
-    {
-      path: 'assets/gallery2/MANTHOS-16.jpg',
-      nodeRef: createRef(null),
-    },
-    {
-      path: 'assets/gallery2/MANTHOS-17.jpg',
-      nodeRef: createRef(null),
-    },
-    {
-      path: 'assets/gallery2/MANTHOS-18.jpg',
-      nodeRef: createRef(null),
-    },
-    {
-      path: 'assets/gallery2/MANTHOS-19.jpg',
-      nodeRef: createRef(null),
-    },
-    {
-      path: 'assets/gallery2/MANTHOS-20.jpg',
-      nodeRef: createRef(null),
-    },
-    {
-      path: 'assets/gallery2/MANTHOS-21.jpg',
-      nodeRef: createRef(null),
-    },
-    {
-      path: 'assets/gallery2/MANTHOS-22.jpg',
-      nodeRef: createRef(null),
-    },
-    {
-      path: 'assets/gallery2/MANTHOS-23.jpg',
-      nodeRef: createRef(null),
-    },
-    {
-      path: 'assets/gallery2/MANTHOS-24.jpg',
-      nodeRef: createRef(null),
-    },
-    {
-      path: 'assets/gallery2/MANTHOS-25.jpg',
-      nodeRef: createRef(null),
-    },
-    {
-      path: 'assets/gallery2/MANTHOS-26.jpg',
-      nodeRef: createRef(null),
-    },
-    {
-      path: 'assets/gallery2/MANTHOS-27.jpg',
-      nodeRef: createRef(null),
-    },
-    {
-      path: 'assets/gallery2/MANTHOS-28.jpg',
-      nodeRef: createRef(null),
-    },
-    {
-      path: 'assets/gallery2/MANTHOS-29.jpg',
-      nodeRef: createRef(null),
-    },
-    {
-      path: 'assets/gallery2/MANTHOS-30.jpg',
-      nodeRef: createRef(null),
-    },
-    {
-      path: 'assets/gallery2/MANTHOS-31.jpg',
-      nodeRef: createRef(null),
-    },
-    {
-      path: 'assets/gallery2/MANTHOS-32.jpg',
-      nodeRef: createRef(null),
-    },
-    {
-      path: 'assets/gallery2/MANTHOS-33.jpg',
-      nodeRef: createRef(null),
-    },
-    {
-      path: 'assets/gallery2/MANTHOS-34.jpg',
-      nodeRef: createRef(null),
-    },
-    {
-      path: 'assets/gallery2/MANTHOS-35.jpg',
-      nodeRef: createRef(null),
-    },
-    {
-      path: 'assets/gallery2/MANTHOS-36.jpg',
-      nodeRef: createRef(null),
-    },
-    {
-      path: 'assets/gallery2/MANTHOS-37.jpg',
-      nodeRef: createRef(null),
-    },
-    {
-      path: 'assets/gallery2/MANTHOS-38.jpg',
-      nodeRef: createRef(null),
-    },
-    {
-      path: 'assets/gallery2/MANTHOS-39.jpg',
-      nodeRef: createRef(null),
-    },
-    {
-      path: 'assets/gallery2/MANTHOS-40.jpg',
-      nodeRef: createRef(null),
-    },
-    {
-      path: 'assets/gallery2/MANTHOS-41.jpg',
-      nodeRef: createRef(null),
-    },
-    {
-      path: 'assets/gallery2/MANTHOS-42.jpg',
-      nodeRef: createRef(null),
-    },
-    {
-      path: 'assets/gallery2/MANTHOS-43.png',
-      nodeRef: createRef(null),
-    },
-    {
-      path: 'assets/gallery2/MANTHOS-44.jpg',
-      nodeRef: createRef(null),
-    },
-  ];
-
   const [fullscreen, setFullscreen] = useState(false);
   const imageRef = useRef(null);
-
+  const [firstUpdate, setFirstUpdate] = useState(true);
   useEffect(() => {
     setList(items.find((i) => i.language === language.id).data);
   }, [language]);
+
   useEffect(() => {
-    if (currentPhotoIndex === 0) {
-      setThumbnailRange([0, 3]);
-    } else if (currentPhotoIndex === 1) {
-      setThumbnailRange([0, 4]);
-    } else if (currentPhotoIndex === 2) {
-      setThumbnailRange([0, 5]);
-    } else if (currentPhotoIndex === 3) {
-      setThumbnailRange([1, 6]);
-    } else if (currentPhotoIndex >= 4 && currentPhotoIndex <= 41) {
-      setThumbnailRange([currentPhotoIndex - 2, currentPhotoIndex + 3]);
-    }
-    if (currentPhotoIndex != 0) {
+    if (!firstUpdate)
       document.getElementsByClassName('selected')[0].scrollIntoView({
         behavior: 'smooth',
         block: 'nearest',
         inline: 'center',
       });
-    }
+    setFirstUpdate(false);
   }, [currentPhotoIndex]);
 
   const enterFullscreen = () => {
@@ -303,7 +111,7 @@ export default function Gallery({ language }) {
         {photos.map((i, index) => {
           return (
             <img
-              loading="lazy"
+              loading={index <= 1 ? 'eager' : 'lazy'}
               class={
                 (currentPhotoIndex === index ? 'selected ' : ' ') +
                 (isMobile ? 'mobile ' : ' ') +
@@ -313,46 +121,11 @@ export default function Gallery({ language }) {
               alt=""
               onClick={() => {
                 setCurrentPhotoIndex(index);
-                document.getElementsByClassName('selected')[0].scrollIntoView({
-                  behavior: 'smooth',
-                  block: 'nearest',
-                  inline: 'center',
-                });
               }}
             ></img>
           );
         })}
       </div>
-      {/* <TransitionGroup className="list">
-          {photos
-            .slice(thumbnailRange[0], thumbnailRange[1])
-            .map(({ path, nodeRef }, index) => {
-              return (
-                <CSSTransition
-                  key={thumbnailRange[0] + index}
-                  nodeRef={nodeRef}
-                  timeout={500}
-                  classNames="item"
-                >
-                  <img
-                    ref={nodeRef}
-                    class={
-                      (currentPhotoIndex === thumbnailRange[0] + index
-                        ? 'selected '
-                        : ' ') +
-                      (isMobile ? 'mobile ' : ' ') +
-                      (index === 0 ? 'first ' : '')
-                    }
-                    onClick={() => {
-                      setCurrentPhotoIndex(thumbnailRange[0] + index);
-                    }}
-                    src={path}
-                    alt=""
-                  />
-                </CSSTransition>
-              );
-            })}
-        </TransitionGroup> */}
     </div>
   );
 }

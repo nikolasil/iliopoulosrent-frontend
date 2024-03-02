@@ -3,7 +3,6 @@ import './contact.scss';
 import items from './items.json';
 import { isMobile } from 'react-device-detect';
 import CircularProgress from '@mui/material/CircularProgress';
-import { Facebook, Instagram, YouTube } from '@mui/icons-material';
 import { SocialIcon } from 'react-social-icons';
 
 export default function Contact({ language }) {
