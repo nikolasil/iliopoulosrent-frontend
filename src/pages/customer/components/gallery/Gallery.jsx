@@ -111,7 +111,7 @@ export default function Gallery({ language }) {
         {photos.map((i, index) => {
           return (
             <img
-              loading={index <= 1 ? 'eager' : 'lazy'}
+              loading='lazy'
               class={
                 (currentPhotoIndex === index ? 'selected ' : ' ') +
                 (isMobile ? 'mobile ' : ' ') +
