@@ -7,7 +7,6 @@ import BookOnlineIcon from '@mui/icons-material/BookOnline';
 import CollectionsIcon from '@mui/icons-material/Collections';
 import PhoneIcon from '@mui/icons-material/Phone';
 import InfoIcon from '@mui/icons-material/Info';
-import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import {
   Alert,
   FormControl,

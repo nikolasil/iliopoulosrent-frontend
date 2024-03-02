@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import './reservation.scss';
-import { Button } from '@mui/material';
 import items from './items.json';
 import { isMobile } from 'react-device-detect';
 export default function Reservation({ language }) {

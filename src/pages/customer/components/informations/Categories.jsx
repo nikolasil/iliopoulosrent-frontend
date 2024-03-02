@@ -5,7 +5,6 @@ import {
   Divider,
   List,
   ListItem,
-  ListItemIcon,
   ListItemText,
 } from '@mui/material';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';

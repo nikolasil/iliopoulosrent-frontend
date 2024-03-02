@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import './informations.scss';
-import { isMobile } from 'react-device-detect';
 import Categories from './Categories';
 import items from './items.json';
 export default function Informations({ language }) {
