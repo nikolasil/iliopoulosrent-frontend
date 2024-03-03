@@ -120,11 +120,16 @@
       flex-shrink: 0;
       display: inline;
       width: 150px;
-        height: 100px;
+      height: 100px;
       margin: 0px 2px;
+      border: 2px solid rgba(255, 255, 255, 0);
       &.selected {
-        border: 4px solid white;
-        
+        border: 2px solid $accentColor;
+        width: 165px;
+        height: 110px;
+      }
+      &:hover {
+        border: 2px solid white;
       }
       &.mobile {
         width: 120px;

@@ -1,21 +1,46 @@
 @import '../../../../global.scss';
 
 .intro {
-  // background-color: $mainColorFaded10;
-  background: url("../../../../../public/assets/background.svg");
-  background-size: cover;
   height: calc(100vh - 70px);
   display: flex;
   justify-content:center;
   align-items: center;
   flex-direction: column;
-  h1{
-    color: white;
-    padding: 25px 25px;
-    text-align: center;
-    font-family: $specialFont;
+  .image{
+    height: 100%;
+    width: 100%;
+    background: url("../../../../../public/assets/gallery2/MANTHOS-29.webp");
+    background-size: cover;
+    background-position: center;
+    -webkit-filter: blur(1px); //change the value according to what suits the best
+    -moz-filter: blur(1px); //change the value according to what suits the best
+    -o-filter: blur(1px); //change the value according to what suits the best
+    -ms-filter: blur(1px); //change the value according to what suits the best
+    filter: blur(1px); //change the value according to what suits the best
+    &.mobile {
+      background-position: 55%;
+    }
   }
-  .button {
-    margin: 10px 10px;
+  .content {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    h1 {
+      color: white;
+      padding: 25px 25px;
+      text-align: center;
+      font-family: $specialFont;
+      font-size: 40px;
+    }
+
+    .button {
+      margin: 10px 10px;
+    }
   }
+ 
 }
