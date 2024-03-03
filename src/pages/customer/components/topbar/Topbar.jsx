@@ -5,8 +5,10 @@ import { isMobile } from 'react-device-detect';
 
 export default function Topbar({ menuOpen, setMenuOpen }) {
   return (
-    <div className={'topbar ' + (menuOpen && 'active')}>
-      <div className="wrapper">
+    <div
+      className={'topbar ' + (menuOpen && ' active ') + (isMobile && ' mobile ')}
+    >
+      <div className={'wrapper ' + (isMobile && 'mobile')}>
         <div className="left">
           {' '}
           {menuOpen && (
@@ -27,7 +29,7 @@ export default function Topbar({ menuOpen, setMenuOpen }) {
           </a>
         </div>
 
-        {!isMobile && <div className="right"></div>}
+        <div className="right"></div>
       </div>
     </div>
   );

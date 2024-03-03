@@ -1,4 +1,4 @@
-import React, {  useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './gallery.scss';
 import items from './items.json';
 import photos from './photos.json';
@@ -7,6 +7,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
+
 export default function Gallery({ language }) {
   const [list, setList] = useState({});
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
@@ -80,11 +81,21 @@ export default function Gallery({ language }) {
           }}
         />
 
-        <img
-          class={'centerImage ' + (isMobile && 'mobile')}
-          src={photos[currentPhotoIndex]?.path}
-          alt=""
-        />
+        {photos[currentPhotoIndex]?.url != null ? (
+          <iframe
+            src={photos[currentPhotoIndex]?.url}
+            width={photos[currentPhotoIndex]?.width}
+            title="www.iliopoulosrent.com"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
+        ) : (
+          <img
+            class={'centerImage ' + (isMobile && 'mobile')}
+            src={photos[currentPhotoIndex]?.path}
+            alt=""
+          />
+        )}
 
         <ArrowForwardIosIcon
           class={'next ' + (isMobile && 'mobile')}
@@ -95,29 +106,30 @@ export default function Gallery({ language }) {
             });
           }}
         />
-        {!fullscreen ? (
-          <FullscreenIcon
-            class={'fullscreen ' + (isMobile && 'mobile')}
-            onClick={handleFullscreen}
-          />
-        ) : (
-          <FullscreenExitIcon
-            class={'fullscreen ' + (isMobile && 'mobile')}
-            onClick={handleFullscreen}
-          />
-        )}
+        {!fullscreen
+          ? photos[currentPhotoIndex]?.url == null && (
+              <FullscreenIcon
+                class={'fullscreen ' + (isMobile && 'mobile')}
+                onClick={handleFullscreen}
+              />
+            )
+          : photos[currentPhotoIndex]?.url == null && (
+              <FullscreenExitIcon
+                class={'fullscreen ' + (isMobile && 'mobile')}
+                onClick={handleFullscreen}
+              />
+            )}
       </div>
       <div className="list">
         {photos.map((i, index) => {
           return (
             <img
-              loading='lazy'
+              loading="lazy"
               class={
-                (currentPhotoIndex === index ? 'selected ' : ' ') +
-                (isMobile ? 'mobile ' : ' ') +
-                (index === 0 ? 'first ' : '')
+                (currentPhotoIndex === index ? ' selected ' : ' ') +
+                (isMobile ? ' mobile ' : ' ')
               }
-              src={i.path}
+              src={i?.path}
               alt=""
               onClick={() => {
                 setCurrentPhotoIndex(index);
