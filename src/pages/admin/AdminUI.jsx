@@ -5,13 +5,7 @@ function AdminUI() {
   return (
     <div className="adminUI">
       <Routes>
-        <Route
-          exact
-          path="*"
-          element={
-            "adminUI"
-          }
-        />
+        <Route exact path="*" element={'adminUI under construction'} />
       </Routes>
     </div>
   );
