@@ -2,7 +2,7 @@
 
 .reservation {
   background: linear-gradient(180deg, $backgroundColor3 0%, $backgroundColor2 100%);
-  height: calc(100vh - 70px);
+  height: calc(70vh - 70px);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -18,44 +18,43 @@
   }
   .container{
     display: flex;
-    justify-content:center;
+    justify-content: space-around;
     align-items: center;
     flex-direction: column;
+    height: 80%;
     h2, h3 {
       color: white;
       padding: 0px 25px;
       text-align: center;
       font-family: $specialFont;
     }
+    .platforms-container {
 
-    .platforms {
-      &.mobile {
-        flex-direction: column;
-      }
-
-      margin: 10px 10px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      .platform {
-        height: 200px;
-        width: 200px;
-        background-color: white;
-        border-radius: 10%;
+      .platforms {
         margin: 10px 10px;
         display: flex;
-        justify-content: space-around;
+        justify-content: center;
         align-items: center;
-        flex-direction: column;
-        border: 1px solid $accentColor;
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-        cursor: pointer;
-        &:hover {
-          background-color: $accentColor;
-        }
-        &.mobile {
-          height: 120px;
-          width: 160px;
+        .platform {
+          height: 200px;
+          width: 200px;
+          background-color: white;
+          border-radius: 10%;
+          margin: 10px 10px;
+          display: flex;
+          justify-content: space-around;
+          align-items: center;
+          flex-direction: column;
+          border: 1px solid $accentColor;
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+          cursor: pointer;
+          &:hover {
+            background-color: $accentColor;
+          }
+          &.mobile {
+            height: 120px;
+            width: 160px;
+          }
         }
       }
     }
