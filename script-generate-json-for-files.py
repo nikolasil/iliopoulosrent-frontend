@@ -1,7 +1,7 @@
 import json
 
 # Specify the base path for your images
-base_path = "assets/gallery2/"
+base_path = "assets/gallery/"
 image_prefix = "MANTHOS-"
 image_extension = ".jpg"
 num_images = 44

@@ -34,7 +34,7 @@ export default function Reservation({ language }) {
               }}
             >
               <img
-                src="assets/airbnb.png"
+                src="assets/airbnb.webp"
                 width="150"
                 height="100"
                 alt="airbnb"
@@ -52,7 +52,7 @@ export default function Reservation({ language }) {
               }}
             >
               <img
-                src="assets/booking.png"
+                src="assets/booking.webp"
                 width="150"
                 height="100"
                 alt="booking"
@@ -72,7 +72,7 @@ export default function Reservation({ language }) {
                   }}
                 >
                   <img
-                    src="assets/vrbo.png"
+                    src="assets/vrbo.webp"
                     width="150"
                     height="100"
                     alt="vrbo"
@@ -90,7 +90,7 @@ export default function Reservation({ language }) {
                   }}
                 >
                   <img
-                    src="assets/bnbingreece.png"
+                    src="assets/bnbingreece.webp"
                     width="110"
                     height="110"
                     alt="bnbingreece"
@@ -113,7 +113,7 @@ export default function Reservation({ language }) {
                 }}
               >
                 <img
-                  src="assets/vrbo.png"
+                  src="assets/vrbo.webp"
                   width="150"
                   height="100"
                   alt="vrbo"
@@ -131,7 +131,7 @@ export default function Reservation({ language }) {
                 }}
               >
                 <img
-                  src="assets/bnbingreece.png"
+                  src="assets/bnbingreece.webp"
                   width="110"
                   height="110"
                   alt="bnbingreece"
