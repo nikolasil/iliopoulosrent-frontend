@@ -1,0 +1,48 @@
+[
+  {
+    "language": "en",
+    "data": {
+      "title": "Contact",
+      "email": "Email",
+      "phone": "Phone",
+      "socialMedia": [
+        {
+          "name": "Instagram",
+          "link": "https://www.instagram.com/iliopoulos.rent/"
+        },
+        {
+          "name": "Facebook",
+          "link": "https://www.facebook.com/profile.php?id=61555123265018"
+        },
+        {
+          "name": "YouTube",
+          "link": "https://www.youtube.com/watch?v=k_S3G3YvsQw"
+        },
+        { "name": "TikTok", "link": "https://www.tiktok.com/@iliopoulosrent" }
+      ]
+    }
+  },
+  {
+    "language": "gr",
+    "data": {
+      "title": "Επικοινωνία",
+      "email": "Ηλεκτρονικό Ταχυδρομείο",
+      "phone": "Τηλέφωνο",
+      "socialMedia": [
+        {
+          "name": "Instagram",
+          "link": "https://www.instagram.com/iliopoulos.rent/"
+        },
+        {
+          "name": "Facebook",
+          "link": "https://www.facebook.com/profile.php?id=61555123265018"
+        },
+        {
+          "name": "YouTube",
+          "link": "https://www.youtube.com/watch?v=k_S3G3YvsQw"
+        },
+        { "name": "TikTok", "link": "https://www.tiktok.com/@iliopoulosrent" }
+      ]
+    }
+  }
+]
