@@ -7,6 +7,8 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
+import { AsyncImage } from 'loadable-image';
+import { Blur } from 'transitions-kit';
 
 export default function Gallery({ language }) {
   const [list, setList] = useState({});
@@ -123,18 +125,20 @@ export default function Gallery({ language }) {
       <div className="list">
         {photos.map((i, index) => {
           return (
-            <img
-              loading="lazy"
-              class={
+            <AsyncImage
+              src={i?.path}
+              Transition={Blur}
+              loader={<div style={{ background: '#888' }} />}
+              className={
+                'thumbnail ' +
                 (currentPhotoIndex === index ? ' selected ' : ' ') +
                 (isMobile ? ' mobile ' : ' ')
               }
-              src={i?.path}
               alt=""
               onClick={() => {
                 setCurrentPhotoIndex(index);
               }}
-            ></img>
+            />
           );
         })}
       </div>

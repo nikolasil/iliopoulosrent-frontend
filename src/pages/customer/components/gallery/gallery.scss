@@ -46,6 +46,7 @@
         object-fit: contain;
         width: 80%;
         transition: all 1000ms ease;
+        
         &.mobile {
           width: 95%;
         }
@@ -138,7 +139,7 @@
     }
     
 
-    img {
+    .thumbnail {
       image-rendering: -webkit-optimize-contrast;
       cursor: pointer;
       flex-shrink: 0;
