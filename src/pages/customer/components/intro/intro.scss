@@ -1,4 +1,5 @@
 @import '../../../../global.scss';
+$blur: 0px;
 
 .intro {
   height: calc(100dvh - 70px);
@@ -12,14 +13,14 @@
   .image{
     height: 100%;
     width: 100%;
-    background: url("../../../../../public/assets/gallery/MANTHOS-29.webp");
+    background: url("../../../../../public/assets/gallery/MANTHOS-01.webp");
     background-size: cover;
     background-position: center;
-    -webkit-filter: blur(1px); //change the value according to what suits the best
-    -moz-filter: blur(1px); //change the value according to what suits the best
-    -o-filter: blur(1px); //change the value according to what suits the best
-    -ms-filter: blur(1px); //change the value according to what suits the best
-    filter: blur(1px); //change the value according to what suits the best
+    -webkit-filter: blur($blur); //change the value according to what suits the best
+    -moz-filter: blur($blur); //change the value according to what suits the best
+    -o-filter: blur($blur); //change the value according to what suits the best
+    -ms-filter: blur($blur); //change the value according to what suits the best
+    filter: blur($blur); //change the value according to what suits the best
     &.mobile {
       background-position: 55%;
     }
@@ -34,6 +35,8 @@
     align-items: center;
     flex-direction: column;
     .box{
+      position: absolute;
+      top: 20%;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -47,7 +50,10 @@
       border-radius: 10px;
       padding: 15px;
       margin: 10px;
-
+      
+      &.mobile {
+        top: 5%;
+      }
       h1 {
         color: white;
         padding: 25px 25px;

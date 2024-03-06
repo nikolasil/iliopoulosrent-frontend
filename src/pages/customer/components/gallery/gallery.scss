@@ -34,44 +34,53 @@
       height: 50dvh;
     }
 
-    .centerImage {
-      object-fit: contain;
-      width: 80%;
-      transition: all 1000ms ease;
-      &.mobile {
-        width: 95%;
-      }
-    }
+    div {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-self: center;
+      flex-direction: row;
 
-    .prev,
-    .next {
-      cursor: pointer;
-      position: absolute;
-      top: 50%;
-      width: 50px;
-      fill: white;
-      // padding: 16px;
-        // color: aqua;
-        // font-weight: bold;
-        // font-size: 18px;
-        transition: 0.6s ease;
-        user-select: none;
-      &.mobile {
-        top: 46%
+      .centerImage {
+        object-fit: contain;
+        width: 80%;
+        transition: all 1000ms ease;
+        &.mobile {
+          width: 95%;
+        }
       }
-      &:hover {
-        fill: $accentColor;
+
+      .prev,
+      .next {
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        width: 50px;
+        fill: white;
+        // padding: 16px;
+          // color: aqua;
+          // font-weight: bold;
+          // font-size: 18px;
+          transition: 0.6s ease;
+          user-select: none;
+        &.mobile {
+          top: 46%
+        }
+        &:hover {
+          fill: $accentColor;
+        }
       }
-    }
 
-    .prev {
-      left: 0;
-      // border-radius: 0 3px 3px 0;
-    }
+      .prev {
+        left: 0;
+        // border-radius: 0 3px 3px 0;
+      }
 
-    .next {
-      right: 0;
-      // border-radius: 3px 0 0 3px;
+      .next {
+        right: 0;
+        // border-radius: 3px 0 0 3px;
+      }
     }
 
     .fullscreen {
@@ -79,7 +88,8 @@
       position: absolute;
       bottom: 0;
       right: 0;
-      width: 50px;
+      width: 30px;
+      height: 30px;
       fill: white;
       // padding: 16px;
       // color: aqua;
@@ -92,11 +102,11 @@
       display: flex;
       justify-content: center;
       align-self: center;
-      cursor: pointer;
       position: absolute;
       top: 0;
       right: 0;
       width: 50px;
+      height: 20px;
       color: white;
       padding: 10px 20px;
       background-color:rgba(0, 0, 0, .4);

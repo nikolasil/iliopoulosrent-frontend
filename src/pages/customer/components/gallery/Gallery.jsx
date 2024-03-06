@@ -71,54 +71,54 @@ export default function Gallery({ language }) {
         <div class={'counter ' + (isMobile && 'mobile')}>
           {currentPhotoIndex + 1 + '/' + photos.length}
         </div>
-        <ArrowBackIosNewIcon
-          class={'prev ' + (isMobile && 'mobile')}
-          onClick={() => {
-            setCurrentPhotoIndex((prev) => {
-              if (prev === 0) return prev;
-              return prev - 1;
-            });
-          }}
-        />
+        <div>
+          <ArrowBackIosNewIcon
+            class={'prev ' + (isMobile && 'mobile')}
+            onClick={() => {
+              setCurrentPhotoIndex((prev) => {
+                if (prev === 0) return prev;
+                return prev - 1;
+              });
+            }}
+          />
 
-        {photos[currentPhotoIndex]?.url != null ? (
-          <iframe
-            src={photos[currentPhotoIndex]?.url}
-            width={photos[currentPhotoIndex]?.width}
-            title="www.iliopoulosrent.com"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen
-          ></iframe>
+          {photos[currentPhotoIndex]?.url != null ? (
+            <iframe
+              src={photos[currentPhotoIndex]?.url}
+              width={photos[currentPhotoIndex]?.width}
+              height="90%"
+              title="www.iliopoulosrent.com"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            ></iframe>
+          ) : (
+            <img
+              class={'centerImage ' + (isMobile && 'mobile')}
+              src={photos[currentPhotoIndex]?.path}
+              alt=""
+            />
+          )}
+
+          <ArrowForwardIosIcon
+            class={'next ' + (isMobile && 'mobile')}
+            onClick={() => {
+              setCurrentPhotoIndex((prev) => {
+                if (prev === photos.length - 1) return prev;
+                return prev + 1;
+              });
+            }}
+          />
+        </div>
+        {!fullscreen ? (
+          <FullscreenIcon
+            class={'fullscreen ' + (isMobile && 'mobile')}
+            onClick={handleFullscreen}
+          />
         ) : (
-          <img
-            class={'centerImage ' + (isMobile && 'mobile')}
-            src={photos[currentPhotoIndex]?.path}
-            alt=""
+          <FullscreenExitIcon
+            class={'fullscreen ' + (isMobile && 'mobile')}
+            onClick={handleFullscreen}
           />
         )}
-
-        <ArrowForwardIosIcon
-          class={'next ' + (isMobile && 'mobile')}
-          onClick={() => {
-            setCurrentPhotoIndex((prev) => {
-              if (prev === photos.length - 1) return prev;
-              return prev + 1;
-            });
-          }}
-        />
-        {!fullscreen
-          ? photos[currentPhotoIndex]?.url == null && (
-              <FullscreenIcon
-                class={'fullscreen ' + (isMobile && 'mobile')}
-                onClick={handleFullscreen}
-              />
-            )
-          : photos[currentPhotoIndex]?.url == null && (
-              <FullscreenExitIcon
-                class={'fullscreen ' + (isMobile && 'mobile')}
-                onClick={handleFullscreen}
-              />
-            )}
       </div>
       <div className="list">
         {photos.map((i, index) => {

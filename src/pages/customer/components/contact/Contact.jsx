@@ -32,7 +32,7 @@ export default function Contact({ language }) {
             <a href="mailto:iliop.rent@gmail.com">iliop.rent@gmail.com</a>
           </h2>
           <h2>
-            {list.phone}: <a href="tel:6948184286">6948184286</a>
+            {list.phone}: <a href="tel:+306948184286">+30 6948184286</a>
           </h2>
           <h2>Social Media</h2>
           <div>

@@ -16,7 +16,7 @@ export default function Intro({ language }) {
     <div className={'intro ' + (isMobile && 'mobile')} id="intro">
       <div className={'image ' + (isMobile && 'mobile')}></div>
       <div className="content">
-        <div className="box">
+        <div className={'box ' + (isMobile && 'mobile')}>
           <h1 className={isMobile && 'mobile'}>{list.title}</h1>
           <div className="buttons">
             <Button
