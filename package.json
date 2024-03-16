@@ -11,7 +11,6 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "loadable-image": "^3.1.1",
     "react": "^18.2.0",
     "react-device-detect": "^2.2.3",
     "react-dom": "^18.2.0",
@@ -20,7 +19,6 @@
     "react-scripts": "5.0.1",
     "react-social-icons": "^6.10.0",
     "sass": "^1.66.1",
-    "transitions-kit": "^1.2.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
