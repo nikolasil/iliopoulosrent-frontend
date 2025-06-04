@@ -1,12 +1,11 @@
 'use client';
 
-import React, { useContext, useEffect, useState } from 'react';
+import React, {  useEffect, useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import ICAL from 'ical.js';
 import { Box, Typography, useMediaQuery, useTheme } from '@mui/material';
-import LangContext from '@/components/LangContext';
-import { getDictionary } from '@/lib/Languages';
+import { useTranslations } from 'next-intl';
 
 interface BookingRange {
   start: Date;
@@ -62,8 +61,7 @@ const MyCalendar = ({ icalUrl }: { icalUrl: string }) => {
     return isDateBooked(date) ? 'booked-date' : 'available-date';
   };
 
-  const lang = useContext(LangContext);
-  const t = getDictionary(lang);
+  const t =  useTranslations();
 
   return (
     <Box
@@ -78,7 +76,7 @@ const MyCalendar = ({ icalUrl }: { icalUrl: string }) => {
       }}
     >
       <Typography variant="h6" gutterBottom>
-        {t.reservations.availability}
+        {t('reservations.availability')}
       </Typography>
 
       {loading && (

@@ -23,13 +23,12 @@ import ContactMailIcon from '@mui/icons-material/ContactMail';
 import InfoIcon from '@mui/icons-material/Info';
 import CollectionsIcon from '@mui/icons-material/Collections';
 import BedroomParentIcon from '@mui/icons-material/BedroomParent';
-
-import { getDictionaries, getDictionary } from '@/lib/Languages';
+import { useTranslations } from 'next-intl';
+import { locales } from '@/i18n/routing';
 
 type MenuDrawerProps = {
   open: boolean;
   onClose: () => void;
-  lang: string;
 };
 
 const navLinks = [
@@ -60,9 +59,10 @@ const navLinks = [
   },
 ];
 
-const MenuDrawer: React.FC<MenuDrawerProps> = ({ open, onClose, lang }) => {
+const MenuDrawer: React.FC<MenuDrawerProps> = ({ open, onClose }) => {
+  const t = useTranslations();
   const [settingsOpen, setSettingsOpen] = useState(false);
-  const [selectedLang, setSelectedLang] = useState(lang);
+  const [selectedLang, setSelectedLang] = useState(t('id'));
 
   const router = useRouter();
   const pathname = usePathname();
@@ -91,8 +91,6 @@ const MenuDrawer: React.FC<MenuDrawerProps> = ({ open, onClose, lang }) => {
       onClose();
     }
   };
-
-  const t = getDictionary(lang);
 
   return (
     <>
@@ -155,12 +153,7 @@ const MenuDrawer: React.FC<MenuDrawerProps> = ({ open, onClose, lang }) => {
               >
                 {icon}
                 <ListItemText
-                  primary={
-                    (() => {
-                      const value = label.split('.').reduce((obj, key) => (obj as any)?.[key], t as any);
-                      return typeof value === 'string' ? value : label;
-                    })()
-                  }
+                  primary={t(label)}
                   sx={{
                     mt: 1,
                     textAlign: 'center',
@@ -195,27 +188,29 @@ const MenuDrawer: React.FC<MenuDrawerProps> = ({ open, onClose, lang }) => {
               textTransform: 'none',
             }}
           >
-            {t.menu.settingsButton}
+            {t('menu.settingsButton')}
           </Button>
         </Box>
       </Drawer>
 
       <Dialog open={settingsOpen} onClose={closeSettings}>
-        <DialogTitle>{t.menu.settingsButton}</DialogTitle>
+        <DialogTitle>{t('menu.settingsButton')}</DialogTitle>
         <DialogContent sx={{ minWidth: 300 }}>
           <FormControl fullWidth sx={{ mt: 2 }}>
-            <InputLabel id="lang-select-label">{t.menu.language}</InputLabel>
+            <InputLabel id="locale-select-label">
+              {t('menu.language')}
+            </InputLabel>
             <Select
-              labelId="lang-select-label"
+              labelId="locale-select-label"
               value={selectedLang}
-              label={t.menu.language}
+              label={t('menu.language')}
               onChange={(event: SelectChangeEvent) => {
                 const newLang = event.target.value;
                 setSelectedLang(newLang);
 
-                // Replace lang segment in pathname without reload
+                // Replace locale segment in pathname without reload
                 const segments = pathname.split('/');
-                if (segments[1] === lang) {
+                if (segments[1] === t('id')) {
                   segments[1] = newLang;
                 }
                 const newPath = segments.join('/') || '/';
@@ -225,8 +220,8 @@ const MenuDrawer: React.FC<MenuDrawerProps> = ({ open, onClose, lang }) => {
                 onClose();
               }}
             >
-              {getDictionaries().map((dict) => (
-                <MenuItem key={dict.lang} value={dict.lang}>
+              {locales.map((dict) => (
+                <MenuItem key={dict.locale} value={dict.locale}>
                   {dict.label}
                 </MenuItem>
               ))}

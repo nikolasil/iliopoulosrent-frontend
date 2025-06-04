@@ -1,4 +1,5 @@
 {
+  "id": "en",
   "topbar": { "title": "Seaside House In Nea Makri" },
   "menu": { "settingsButton": "Settings", "language": "Language" },
   "intro": {

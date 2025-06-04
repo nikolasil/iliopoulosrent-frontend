@@ -1,18 +1,16 @@
 'use client';
-import React, { useContext } from 'react';
+import React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { getDictionary } from '@/lib/Languages';
-import LangContext from '../../LangContext';
+import { useTranslations } from 'next-intl';
 
 interface IntroContentProps {
   onScrollToSection: (id: string) => void;
 }
 
 const IntroContent: React.FC<IntroContentProps> = ({ onScrollToSection }) => {
-  const lang = useContext(LangContext);
-  const t = getDictionary(lang);
+  const t =  useTranslations();
   return (
     <Box
       sx={{
@@ -39,7 +37,7 @@ const IntroContent: React.FC<IntroContentProps> = ({ onScrollToSection }) => {
           },
         }}
       >
-        {t.intro.subTitle}
+        {t('intro.subTitle')}
       </Typography>
 
       <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2 }}>
@@ -58,7 +56,7 @@ const IntroContent: React.FC<IntroContentProps> = ({ onScrollToSection }) => {
             },
           }}
         >
-          {t.intro.buttonLeft}
+          {t('intro.buttonLeft')}
         </Button>
         <Button
           variant="outlined"
@@ -77,7 +75,7 @@ const IntroContent: React.FC<IntroContentProps> = ({ onScrollToSection }) => {
             },
           }}
         >
-          {t.intro.buttonRight}
+          {t('intro.buttonRight')}
         </Button>
       </Box>
     </Box>

@@ -1,3 +1,4 @@
+
 import React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -6,16 +7,18 @@ import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
-import { getDictionary } from '@/lib/Languages';
+import { useTranslations } from 'next-intl';
 
 type TopBarProps = {
-  lang: string;
   drawerOpen: boolean;
   toggleDrawer: () => void;
 };
 
-const TopBar: React.FC<TopBarProps> = ({ lang, drawerOpen, toggleDrawer }) => {
-  const t = getDictionary(lang);
+const TopBar: React.FC<TopBarProps> = ({
+  drawerOpen,
+  toggleDrawer,
+}) => {
+  const t =  useTranslations();
 
   return (
     <>
@@ -65,7 +68,7 @@ const TopBar: React.FC<TopBarProps> = ({ lang, drawerOpen, toggleDrawer }) => {
               window.location.href = '#intro';
             }}
           >
-            {t.topbar.title}
+            {t('topbar.title')}
           </Typography>
 
           <Box sx={{ width: 48 }} />

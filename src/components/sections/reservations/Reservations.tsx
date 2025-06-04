@@ -1,27 +1,25 @@
 'use client';
 
-import React, { useContext } from 'react';
+import React from 'react';
 import { Box, Typography, Grid, Link } from '@mui/material';
-import LangContext from '@/components/LangContext';
-import { getDictionary } from '@/lib/Languages';
 import platforms from './platforms.json';
 import MyCalendar from './MyCalendar';
 import SectionTitle from '@/components/SectionTitle';
 import SectionWrapper from '@/components/SectionWrapper';
+import { useTranslations } from 'next-intl';
 
-const ReservationSection = () => {
-  const lang = useContext(LangContext);
-  const t = getDictionary(lang);
+const Reservation = () => {
+  const t =  useTranslations();
 
   return (
     <SectionWrapper
       id="reservations"
       heightCalc={{ xs: `calc(120dvh - 56px)` }}
     >
-      <SectionTitle title={t.reservations.title} />
+      <SectionTitle title={t('reservations.title')} />
 
       <Typography variant="body1" sx={{ mb: 5, maxWidth: 800 }}>
-        {t.reservations.subTitle}
+        {t('reservations.subTitle')}
       </Typography>
 
       {/* Platform icons */}
@@ -85,4 +83,4 @@ const ReservationSection = () => {
   );
 };
 
-export default ReservationSection;
+export default Reservation;

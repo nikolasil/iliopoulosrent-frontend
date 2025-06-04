@@ -1,24 +1,21 @@
 'use client';
 
-import React, { useContext } from 'react';
+import React from 'react';
 import {
   Box,
   Typography,
   Accordion,
   AccordionSummary,
   AccordionDetails,
-  Paper,
-  Divider,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import docs from './informations.json';
-import { getDictionary } from '@/lib/Languages';
-import LangContext from '@/components/LangContext';
 import SectionTitle from '@/components/SectionTitle';
 import SectionWrapper from '@/components/SectionWrapper';
+import { useTranslations } from 'next-intl';
 
-function getTranslation(t: Record<string, any>, key: string): any {
-  return key.split('.').reduce((o, k) => (o ? o[k] : undefined), t) || key;
+function getTranslation(t: any, key: string): any {
+  return t(key);
 }
 
 const renderDocs = (t: any, docs: any[], level = 0) =>
@@ -50,16 +47,18 @@ const renderDocs = (t: any, docs: any[], level = 0) =>
     </Accordion>
   ));
 
-const InformationsSection = () => {
-  const lang = useContext(LangContext);
-  const t = getDictionary(lang);
+const Informations = () => {
+  const t = useTranslations();
 
   return (
-    <SectionWrapper id="informations" heightCalc={{ xs: `calc(115dvh - 56px)` }}>
+    <SectionWrapper
+      id="informations"
+      heightCalc={{ xs: `calc(115dvh - 56px)` }}
+    >
       {/* Title and subtitle - no overflow */}
-      <SectionTitle title={t.informations.title} />
+      <SectionTitle title={t('informations.title')} />
       <Typography variant="body1" sx={{ mb: 4, maxWidth: '800px' }}>
-        {t.informations.subTitle}
+        {t('informations.subTitle')}
       </Typography>
 
       {/* Scrollable container only for accordions */}
@@ -76,4 +75,4 @@ const InformationsSection = () => {
   );
 };
 
-export default InformationsSection;
+export default Informations;

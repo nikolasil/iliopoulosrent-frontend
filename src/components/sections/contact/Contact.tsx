@@ -1,28 +1,26 @@
 'use client';
 
-import React, { useContext } from 'react';
-import { Box, Typography, Link, Stack, Paper } from '@mui/material';
+import React from 'react';
+import { Box, Typography, Link, Stack } from '@mui/material';
 import EmailIcon from '@mui/icons-material/Email';
 import PhoneIcon from '@mui/icons-material/Phone';
 import { SocialIcon } from 'react-social-icons';
-import { getDictionary } from '@/lib/Languages';
-import LangContext from '@/components/LangContext';
 import data from './items.json';
 import SectionTitle from '@/components/SectionTitle';
 import SectionWrapper from '@/components/SectionWrapper';
+import { useTranslations } from 'next-intl';
 
-const ContactSection: React.FC = () => {
+const Contact: React.FC = () => {
   const emailAddress = 'iliop.rent@gmail.com';
   const phoneNumber = '+30 694 81 84 286';
-  const lang = useContext(LangContext);
-  const t = getDictionary(lang);
+  const t = useTranslations();
 
   const googleMapsSrc =
     'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3994.465192184291!2d23.971968602156686!3d38.09737453278036!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14a183eddc2f4a83%3A0xe898f9a5af70c6d!2sSeaside%20House%20in%20Nea%20Makri!5e0!3m2!1sen!2sgr!4v1696958072633!5m2!1sen!2sgr';
 
   return (
     <SectionWrapper id="contact">
-      <SectionTitle title={t.contact.title} />
+      <SectionTitle title={t('contact.title')} />
 
       <Box>
         <Stack spacing={3}>
@@ -31,7 +29,7 @@ const ContactSection: React.FC = () => {
             <EmailIcon color="primary" />
             <Typography variant="body1">
               <Link href={`mailto:${emailAddress}`} underline="hover">
-                {t.contact.email}: {emailAddress}
+                {t('contact.email')}: {emailAddress}
               </Link>
             </Typography>
           </Stack>
@@ -41,14 +39,14 @@ const ContactSection: React.FC = () => {
             <PhoneIcon color="primary" />
             <Typography variant="body1">
               <Link href={`tel:${phoneNumber}`} underline="hover">
-                {t.contact.phone}: {phoneNumber}
+                {t('contact.phone')}: {phoneNumber}
               </Link>
             </Typography>
           </Stack>
 
           <Box>
             <Typography variant="h6" gutterBottom>
-              {t.contact.socials}
+              {t('contact.socials')}
             </Typography>
             <Stack
               direction="row"
@@ -97,4 +95,4 @@ const ContactSection: React.FC = () => {
   );
 };
 
-export default ContactSection;
+export default Contact;

@@ -1,5 +1,5 @@
 # --- Stage 1: Build ---
-FROM node:18-alpine AS builder
+FROM node:20-alpine AS builder
 
 # Update system packages to reduce vulnerabilities
 RUN apk update && apk upgrade --no-cache
@@ -25,7 +25,7 @@ COPY . .
 RUN npm run build
 
 # --- Stage 2: Production image ---
-FROM node:18-alpine AS runner
+FROM node:20-alpine AS runner
 
 # Update system packages to reduce vulnerabilities
 RUN apk update && apk upgrade --no-cache
