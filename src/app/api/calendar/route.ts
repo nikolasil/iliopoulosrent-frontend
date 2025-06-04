@@ -33,7 +33,7 @@ export async function GET() {
         'X-Cache': 'MISS',
       },
     });
-  } catch (error: any) {
+  } catch {
     return new Response(
       JSON.stringify({ error: 'Server error fetching iCal' }),
       { status: 500, headers: { 'Content-Type': 'application/json' } }

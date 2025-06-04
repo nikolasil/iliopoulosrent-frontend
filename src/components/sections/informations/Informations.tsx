@@ -14,11 +14,23 @@ import SectionTitle from '@/components/SectionTitle';
 import SectionWrapper from '@/components/SectionWrapper';
 import { useTranslations } from 'next-intl';
 
-function getTranslation(t: any, key: string): any {
+function getTranslation(t: (key: string) => string, key: string): string {
   return t(key);
 }
 
-const renderDocs = (t: any, docs: any[], level = 0) =>
+type Doc = {
+  id?: string | number;
+  name: string;
+  desc?: string;
+  docs?: Doc[];
+  expand?: boolean;
+};
+
+const renderDocs = (
+  t: (key: string) => string,
+  docs: Doc[],
+  level = 0
+) =>
   docs.map((doc, index) => (
     <Accordion
       key={doc.id || index}

@@ -41,8 +41,12 @@ const MyCalendar = ({ icalUrl }: { icalUrl: string }) => {
 
         setBookedRanges(ranges);
         setLoading(false);
-      } catch (err: any) {
-        setError(err.message || 'Error fetching calendar');
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError('Error fetching calendar');
+        }
         setLoading(false);
       }
     };
