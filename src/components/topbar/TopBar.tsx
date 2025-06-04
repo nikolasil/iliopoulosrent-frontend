@@ -1,4 +1,3 @@
-
 import React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -14,11 +13,27 @@ type TopBarProps = {
   toggleDrawer: () => void;
 };
 
-const TopBar: React.FC<TopBarProps> = ({
-  drawerOpen,
-  toggleDrawer,
-}) => {
-  const t =  useTranslations();
+const handleClick = (href: string) => {
+  if (href.startsWith('#')) {
+    const id = href.substring(1);
+    const element = document.getElementById(id);
+
+    if (element) {
+      const isMobile = window.innerWidth < 600;
+      const yOffset = isMobile ? -56 : -64;
+
+      const y =
+        element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+  } else if (href.startsWith('/')) {
+    window.location.href = href;
+  }
+};
+
+const TopBar: React.FC<TopBarProps> = ({ drawerOpen, toggleDrawer }) => {
+  const t = useTranslations();
 
   return (
     <>
@@ -65,7 +80,7 @@ const TopBar: React.FC<TopBarProps> = ({
               },
             }}
             onClick={() => {
-              window.location.href = '#intro';
+              handleClick('#intro');
             }}
           >
             {t('topbar.title')}
