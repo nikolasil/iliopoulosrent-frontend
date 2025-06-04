@@ -32,4 +32,4 @@ jobs:
             sudo docker stop iliopoulosrent-frontend || true
             sudo docker rm iliopoulosrent-frontend || true
             sudo docker pull nikolasil/iliopoulosrent-frontend || true
-            sudo docker run -d --name iliopoulosrent-frontend -p 8081:80 nikolasil/iliopoulosrent-frontend:latest
+            sudo docker run -d --name iliopoulosrent-frontend -e NEXTAUTH_URL=https://iliopoulosrent.com -e NEXT_PUBLIC_SITE_URL=https://iliopoulosrent.com -p 8081:3000 nikolasil/iliopoulosrent-frontend:latest
