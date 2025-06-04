@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Airbnb",
+    "icon": "assets/reservations/airbnb.webp",
+    "url": "https://airbnb.com/h/seasidehouseinneamakri"
+  },
+  {
+    "name": "Booking",
+    "icon": "assets/reservations/booking.webp",
+    "url": "https://booking.com/hotel/gr/seaside-house-in-nea-makri.el.html"
+  },
+  {
+    "name": "Vrbo",
+    "icon": "assets/reservations/vrbo.webp",
+    "url": "https://www.vrbo.com/en-ca/cottage-rental/p3575497vb"
+  },
+  {
+    "name": "BnbInGreece",
+    "icon": "assets/reservations/bnbingreece.webp",
+    "url": "https://bnbingreece.com/en/room/10156"
+  }
+]

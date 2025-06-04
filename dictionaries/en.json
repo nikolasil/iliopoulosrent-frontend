@@ -1,0 +1,97 @@
+{
+  "topbar": { "title": "Seaside House In Nea Makri" },
+  "menu": { "settingsButton": "Settings", "language": "Language" },
+  "intro": {
+    "title": "Home",
+    "subTitle": "Escape to modern seaside luxury with our stunning entire house rental",
+    "buttonLeft": "Contact",
+    "buttonRight": "Book now"
+  },
+  "gallery": {
+    "title": "Gallery"
+  },
+  "informations": {
+    "title": "Informations",
+    "subTitle": "Our beautiful accommodation offers a relaxing and unforgettable getaway by the sea, just steps away from the pristine shores of a blue-flagged beach. Experience the perfect blend of comfort and tranquility just steps away from the glistening Mediterranean waters. Our thoughtfully curated house welcomes you with a cozy ambiance and ample natural light.",
+    "jacuzzi": {
+      "name": "JACUZZI ..??",
+      "desc": "YES..! The property has a 5 seater Jacuzzi for a luxurious vacation."
+    },
+    "infants": {
+      "name": "Infants",
+      "desc": "A baby grip, a baby high chair and a baby bath are provided after demand with no extra charge."
+    },
+    "rooms": {
+      "name": "Rooms",
+      "master": {
+        "name": "Master Bedroom",
+        "desc": "The first bedroom is furnished with a comfortable double bed. The mattresses are orthopedic with independent springs and memory foam, and the sheets and the towels are 100% cotton."
+      },
+      "second": {
+        "name": "Second Bedroom",
+        "desc": "The second bedroom features two single beds that can be combined into a double bed. The mattresses are orthopedic with independent springs and memory foam, and the sheets and the towels are 100% cotton."
+      },
+      "bathroom": {
+        "name": "Bathroom",
+        "desc": "The accommodation features a modern bathroom equipped with a hydro-massage column, ensuring a luxurious bathing experience. Also has a washing machine."
+      },
+      "living": {
+        "name": "Living Room",
+        "desc": "After a day of exploration, relax in the comfortable living room, designed with care to create a warm and inviting atmosphere for your rest. The sofa features an extra bed for a fifth person."
+      },
+      "kitchen": {
+        "name": "Kitchen",
+        "desc": "Our fully equipped kitchen features modern appliances and has everything you need to prepare delicious meals. Whether you're a cooking enthusiast or simply prefer homemade dishes during your stay, the kitchen caters to all your needs."
+      },
+      "garden": {
+        "name": "Garden",
+        "desc": "In the garden there is a barbeque, an outdoor dining table and sofa."
+      }
+    },
+    "amenities": {
+      "name": "Amenities",
+      "cooling": {
+        "name": "Cooling & Heating",
+        "desc": "Air conditioning in all rooms and abundant hot water provided by a solar water heater."
+      },
+      "parking": {
+        "name": "Parking lot",
+        "desc": "Single space parking lot with roof. There are also available several public parking spaces besides the street."
+      },
+      "desk": {
+        "name": "Desk",
+        "desc": "For any work or study needs."
+      },
+      "shutters": {
+        "name": "Curtains & Shutters",
+        "desc": "To ensure a serene atmosphere, the accommodation features blackout curtains and electric shutters."
+      },
+      "infants": {
+        "name": "Infants",
+        "desc": "A baby grip, a baby high chair and a baby bath are provided after demand with no extra charge."
+      }
+    },
+    "distances": {
+      "name": "Distances from landmarks",
+      "airport": {
+        "name": "Athens International Airport (ATH)",
+        "desc": "35 minutes ~ 25km."
+      },
+      "port": {
+        "name": "Rafina port",
+        "desc": "20 minutes ~ 13km."
+      }
+    }
+  },
+  "reservations": {
+    "title": "Reservation",
+    "subTitle": "Our accommodation is available for rent all year round. You can book your stay by contacting us via phone, email or using any of the platforms below.",
+    "availability": "Availability Calendar"
+  },
+  "contact": {
+    "title": "Contact",
+    "email": "Email",
+    "phone": "Phone",
+    "socials": "Social Media"
+  }
+}

@@ -1,0 +1,96 @@
+[
+  {
+    "id": 1,
+    "name": "informations.jacuzzi.name",
+    "desc": "informations.jacuzzi.desc",
+    "expand": true
+  },
+  {
+    "id": 2,
+    "name": "informations.infants.name",
+    "desc": "informations.infants.desc"
+  },
+  {
+    "id": 3,
+    "name": "informations.rooms.name",
+    "docs": [
+      {
+        "id": 1,
+        "name": "informations.rooms.master.name",
+        "desc": "informations.rooms.master.desc"
+      },
+      {
+        "id": 2,
+        "name": "informations.rooms.second.name",
+        "desc": "informations.rooms.second.desc"
+      },
+      {
+        "id": 3,
+        "name": "informations.rooms.bathroom.name",
+        "desc": "informations.rooms.bathroom.desc"
+      },
+      {
+        "id": 4,
+        "name": "informations.rooms.living.name",
+        "desc": "informations.rooms.living.desc"
+      },
+      {
+        "id": 5,
+        "name": "informations.rooms.kitchen.name",
+        "desc": "informations.rooms.kitchen.desc"
+      },
+      {
+        "id": 6,
+        "name": "informations.rooms.garden.name",
+        "desc": "informations.rooms.garden.desc"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "informations.amenities.name",
+    "docs": [
+      {
+        "id": 1,
+        "name": "informations.amenities.cooling.name",
+        "desc": "informations.amenities.cooling.desc"
+      },
+      {
+        "id": 2,
+        "name": "informations.amenities.parking.name",
+        "desc": "informations.amenities.parking.desc"
+      },
+      {
+        "id": 3,
+        "name": "informations.amenities.desk.name",
+        "desc": "informations.amenities.desk.desc"
+      },
+      {
+        "id": 4,
+        "name": "informations.amenities.shutters.name",
+        "desc": "informations.amenities.shutters.desc"
+      },
+      {
+        "id": 5,
+        "name": "informations.amenities.infants.name",
+        "desc": "informations.amenities.infants.desc"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "informations.distances.name",
+    "docs": [
+      {
+        "id": 1,
+        "name": "informations.distances.airport.name",
+        "desc": "informations.distances.airport.desc"
+      },
+      {
+        "id": 2,
+        "name": "informations.distances.port.name",
+        "desc": "informations.distances.port.desc"
+      }
+    ]
+  }
+]
