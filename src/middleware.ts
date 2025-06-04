@@ -1,26 +1,26 @@
+import { NextResponse } from 'next/server';
 import createMiddleware from 'next-intl/middleware';
 
 const locales = ['en', 'gr'];
 const defaultLocale = 'gr';
 
-export default async function middleware(req: any) {
-  // Extract host and protocol from headers (Cloudflare forwards these)
+const nextIntlMiddleware = createMiddleware({ locales, defaultLocale });
+
+export default function middleware(req: any) {
   const host = req.headers.get('host') || '';
   const protocol = req.headers.get('x-forwarded-proto') || 'http';
-  console.log('Host:', host, 'Protocol:', protocol);
-  // Optionally: enforce this middleware only on your domain
-  if (host !== 'iliopoulosrent.com') {
-    // Skip or handle differently if needed
-    return;
+
+  // Create a NextResponse so you can add headers for debugging
+  const res = NextResponse.next();
+  res.headers.set('x-debug-host', host);
+  res.headers.set('x-debug-protocol', protocol);
+
+  // Optionally skip locale middleware if host not your domain
+  if (host !== 'iliopoulosrent.com' || host !== 'www.iliopoulosrent.com') {
+    return res;
   }
 
-  // Here you can call next-intl middleware normally
-  const nextIntlMiddleware = createMiddleware({
-    locales,
-    defaultLocale,
-  });
-
-  // Call the next-intl middleware with the request
+  // Call your next-intl middleware and return its response
   return nextIntlMiddleware(req);
 }
 
