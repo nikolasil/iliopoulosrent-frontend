@@ -1,10 +1,14 @@
 import { defineRouting } from "next-intl/routing";
 import { createNavigation } from "next-intl/navigation";
 
-// Human-readable list of supported locales
 export const locales = [
   { locale: 'gr', label: 'Greek' },
   { locale: 'en', label: 'English' },
+];
+
+export const localesCodes = [
+  { locale: 'gr' },
+  { locale: 'en'},
 ];
 
 export const routing = defineRouting({
