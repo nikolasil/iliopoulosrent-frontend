@@ -53,7 +53,8 @@ jobs:
           script: |
             set -eo pipefail
 
-            IMAGE_TAG=${SHORT_SHA::7}
+            SHORT_SHA=${{ github.sha }}
+            IMAGE_TAG=$(echo "$SHORT_SHA" | cut -c1-7)
             CONTAINER_NAME=${{ env.CONTAINER_NAME }}
             IMAGE_NAME=${{ env.IMAGE_NAME }}
 

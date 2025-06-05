@@ -11,13 +11,12 @@ export async function generateStaticParams() {
 
 type LayoutProps = {
   children: React.ReactNode;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  params: any;
+  params: Promise<{ locale: string } >
 };
 
 export default async function LocaleLayout({ children, params }: LayoutProps) {
   const messages = await getMessages();
-  const { locale } = params;
+  const { locale } = await params;
 
   if (!messages) notFound();
 
