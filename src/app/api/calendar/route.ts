@@ -15,20 +15,20 @@ export async function GET() {
   const now = Date.now();
 
   if (cachedData && now - lastFetched < CACHE_DURATION) {
-    // parse to extract the original lastFetched timestamp
     const parsed = JSON.parse(cachedData);
-    const responseBody = {
-      lastFetched: parsed.lastFetched,
-      ranges: parsed.ranges,
-    };
-
-    return new Response(JSON.stringify(responseBody), {
-      status: 200,
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Cache': 'HIT',
-      },
-    });
+    return new Response(
+      JSON.stringify({
+        lastFetched: parsed.lastFetched,
+        ranges: parsed.ranges,
+      }),
+      {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Cache': 'HIT',
+        },
+      }
+    );
   }
 
   try {
@@ -47,9 +47,17 @@ export async function GET() {
 
       for (const vevent of vevents) {
         const event = new ICAL.Event(vevent);
+        const start = event.startDate.toJSDate();
+        const end = event.endDate.toJSDate();
+
+        // If it's an all-day event, subtract 1 day from the end to make it inclusive
+        if (event.endDate.isDate) {
+          end.setDate(end.getDate() - 1);
+        }
+
         ranges.push({
-          start: event.startDate.toJSDate().toISOString(),
-          end: event.endDate.toJSDate().toISOString(),
+          start: start.toISOString(),
+          end: end.toISOString(),
         });
       }
     }

@@ -60,7 +60,7 @@ const MyCalendar = ({ apiUrl }: { apiUrl: string }) => {
 
   const isDateBooked = (date: Date) => {
     return bookedRanges.some(
-      (range) => date >= range.start && date < range.end
+      (range) => date >= range.start && date <= range.end
     );
   };
 
@@ -133,6 +133,5 @@ const MyCalendar = ({ apiUrl }: { apiUrl: string }) => {
     </Box>
   );
 };
-
 
 export default MyCalendar;
