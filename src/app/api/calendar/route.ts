@@ -50,11 +50,6 @@ export async function GET() {
         const start = event.startDate.toJSDate();
         const end = event.endDate.toJSDate();
 
-        // If it's an all-day event, subtract 1 day from the end to make it inclusive
-        if (event.endDate.isDate) {
-          end.setDate(end.getDate() - 1);
-        }
-
         ranges.push({
           start: start.toISOString(),
           end: end.toISOString(),
