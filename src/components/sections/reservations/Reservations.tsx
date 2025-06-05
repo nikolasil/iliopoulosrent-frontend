@@ -77,7 +77,7 @@ const Reservation = () => {
 
       {/* Calendar */}
       <Box sx={{ maxWidth: 900, mx: 'auto' }}>
-        <MyCalendar icalUrl="/api/calendar" />
+        <MyCalendar apiUrl="/api/calendar" />
       </Box>
     </SectionWrapper>
   );

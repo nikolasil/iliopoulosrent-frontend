@@ -1,9 +1,8 @@
 'use client';
 
-import React, {  useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import ICAL from 'ical.js';
 import { Box, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { useTranslations } from 'next-intl';
 
@@ -12,47 +11,52 @@ interface BookingRange {
   end: Date;
 }
 
-const MyCalendar = ({ icalUrl }: { icalUrl: string }) => {
+interface BookingRange {
+  start: Date;
+  end: Date;
+}
+
+const MyCalendar = ({ apiUrl }: { apiUrl: string }) => {
   const [bookedRanges, setBookedRanges] = useState<BookingRange[]>([]);
+  const [lastFetched, setLastFetched] = useState<Date | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const t = useTranslations();
 
   useEffect(() => {
-    const fetchICal = async () => {
+    const fetchRanges = async () => {
       try {
-        const res = await fetch(icalUrl);
-        if (!res.ok) throw new Error('Failed to fetch iCal feed');
-        const text = await res.text();
+        const res = await fetch(apiUrl);
+        if (!res.ok) throw new Error('Failed to fetch availability');
 
-        const jcalData = ICAL.parse(text);
-        const comp = new ICAL.Component(jcalData);
-        const vevents = comp.getAllSubcomponents('vevent');
+        const data: {
+          lastFetched: string;
+          ranges: { start: string; end: string }[];
+        } = await res.json();
 
-        const ranges: BookingRange[] = vevents.map((vevent) => {
-          const event = new ICAL.Event(vevent);
-          return {
-            start: event.startDate.toJSDate(),
-            end: event.endDate.toJSDate(),
-          };
-        });
+        const parsedRanges = data.ranges.map((range) => ({
+          start: new Date(range.start),
+          end: new Date(range.end),
+        }));
 
-        setBookedRanges(ranges);
+        setBookedRanges(parsedRanges);
+        setLastFetched(new Date(data.lastFetched));
         setLoading(false);
       } catch (err: unknown) {
         if (err instanceof Error) {
           setError(err.message);
         } else {
-          setError('Error fetching calendar');
+          setError('Unknown error fetching availability');
         }
         setLoading(false);
       }
     };
 
-    fetchICal();
-  }, [icalUrl]);
+    fetchRanges();
+  }, [apiUrl]);
 
   const isDateBooked = (date: Date) => {
     return bookedRanges.some(
@@ -64,8 +68,6 @@ const MyCalendar = ({ icalUrl }: { icalUrl: string }) => {
     if (view !== 'month') return '';
     return isDateBooked(date) ? 'booked-date' : 'available-date';
   };
-
-  const t =  useTranslations();
 
   return (
     <Box
@@ -95,13 +97,20 @@ const MyCalendar = ({ icalUrl }: { icalUrl: string }) => {
       )}
 
       {!loading && !error && (
-        <Calendar
-          tileClassName={tileClassName}
-          minDate={new Date()}
-          calendarType="gregory"
-          showNeighboringMonth
-          showDoubleView={!isMobile}
-        />
+        <>
+          <Calendar
+            tileClassName={tileClassName}
+            minDate={new Date()}
+            calendarType="gregory"
+            showNeighboringMonth
+            showDoubleView={!isMobile}
+          />
+          {lastFetched && (
+            <Typography variant="caption" color="text.secondary" mt={1}>
+              Last updated: {lastFetched.toLocaleString()}
+            </Typography>
+          )}
+        </>
       )}
 
       <style jsx global>{`
@@ -124,5 +133,6 @@ const MyCalendar = ({ icalUrl }: { icalUrl: string }) => {
     </Box>
   );
 };
+
 
 export default MyCalendar;
