@@ -2,7 +2,7 @@ name: Deploy Pipeline
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
 
 env:
   IMAGE_NAME: nikolasil/iliopoulosrent-frontend
@@ -12,60 +12,16 @@ env:
   SHORT_SHA: ${{ github.sha }}
 
 jobs:
-  build:
-    name: 🏗️ Build Docker Image
+  build-and-push:
+    name: 🏗️ Build and Push Docker Image
     runs-on: ubuntu-22.04
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
-
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
-
-      - name: Build Docker image
-        run: |
-          docker buildx build \
-            --platform linux/arm64/v8 \
-            --file Dockerfile \
-            --tag $IMAGE_NAME:latest \
-            --tag $IMAGE_NAME:${SHORT_SHA::7} \
-            --output type=docker .
-
-      - name: Save and compress Docker image
-        run: |
-          docker save $IMAGE_NAME:latest | gzip > ${{ runner.temp }}/image-latest.tar.gz
-          docker save $IMAGE_NAME:${SHORT_SHA::7} | gzip > ${{ runner.temp }}/image-sha.tar.gz
-
-      - name: Upload Docker image artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: docker-images
-          path: |
-            ${{ runner.temp }}/image-latest.tar.gz
-            ${{ runner.temp }}/image-sha.tar.gz
-
-  push:
-    name: 🚀 Push to Docker Hub
-    runs-on: ubuntu-22.04
-    needs: build
-
-    steps:
-      - name: Download Docker image artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: docker-images
-
-      - name: Set up Docker
-        uses: docker/setup-buildx-action@v2
-
-      - name: Decompress and load Docker images
-        run: |
-          gunzip -c image-latest.tar.gz | docker load
-          gunzip -c image-sha.tar.gz | docker load
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
@@ -73,18 +29,22 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Push Docker images
+      - name: Build and push Docker image
         run: |
-          docker push $IMAGE_NAME:latest
-          docker push $IMAGE_NAME:${SHORT_SHA::7}
+          docker buildx build \
+            --platform linux/arm64/v8 \
+            --file Dockerfile \
+            --tag $IMAGE_NAME:latest \
+            --tag $IMAGE_NAME:${SHORT_SHA::7} \
+            --push .
 
   deploy:
     name: ⚙️ Deploy to EC2
     runs-on: ubuntu-22.04
-    needs: push
+    needs: build-and-push
 
     steps:
-      - name: SSH and deploy
+      - name: Deploy via SSH
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: 44.200.151.12
@@ -94,28 +54,30 @@ jobs:
             set -eo pipefail
 
             IMAGE_TAG=${SHORT_SHA::7}
+            CONTAINER_NAME=${{ env.CONTAINER_NAME }}
+            IMAGE_NAME=${{ env.IMAGE_NAME }}
 
             echo "Pulling new image..."
             sudo docker pull $IMAGE_NAME:$IMAGE_TAG
 
-            echo "Stopping current container (if exists)..."
-            sudo docker stop $CONTAINER_NAME || true
-            sudo docker rm $CONTAINER_NAME || true
+            echo "Stopping current container if running..."
+            sudo docker rm -f $CONTAINER_NAME || true
 
             echo "Starting new container..."
             if ! sudo docker run -d \
               --name $CONTAINER_NAME \
-              -e NEXTAUTH_URL=$NEXTAUTH_URL \
-              -e NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL \
+              -e NEXTAUTH_URL=${{ env.NEXTAUTH_URL }} \
+              -e NEXT_PUBLIC_SITE_URL=${{ env.NEXT_PUBLIC_SITE_URL }} \
               -p 8081:3000 \
               $IMAGE_NAME:$IMAGE_TAG; then
 
-              echo "❌ Failed to start new container! Attempting rollback to 'latest'..."
+              echo "❌ Failed to start new container. Rolling back to 'latest'..."
               sudo docker pull $IMAGE_NAME:latest
+              sudo docker rm -f $CONTAINER_NAME || true
               sudo docker run -d \
                 --name $CONTAINER_NAME \
-                -e NEXTAUTH_URL=$NEXTAUTH_URL \
-                -e NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL \
+                -e NEXTAUTH_URL=${{ env.NEXTAUTH_URL }} \
+                -e NEXT_PUBLIC_SITE_URL=${{ env.NEXT_PUBLIC_SITE_URL }} \
                 -p 8081:3000 \
                 $IMAGE_NAME:latest
             fi
