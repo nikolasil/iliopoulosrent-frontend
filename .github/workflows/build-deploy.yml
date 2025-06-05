@@ -4,33 +4,92 @@ on:
   push:
     branches: [ "main" ]
 
+env:
+  IMAGE_NAME: nikolasil/iliopoulosrent-frontend
+  CONTAINER_NAME: iliopoulosrent-frontend
+  NEXTAUTH_URL: https://iliopoulosrent.com
+  NEXT_PUBLIC_SITE_URL: https://iliopoulosrent.com
+
 jobs:
-  build-deploy:
+  build:
+    name: Build Docker Image
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v3
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
+      - name: Checkout code
+        uses: actions/checkout@v3
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
+
+      - name: Build Docker image (no push yet)
+        run: |
+          docker buildx build \
+            --platform linux/arm64/v8 \
+            --file Dockerfile \
+            --tag $IMAGE_NAME:latest \
+            --output type=docker .
+
+      - name: Save image to workspace
+        run: docker save $IMAGE_NAME:latest | gzip > image.tar.gz
+
+      - name: Upload image artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: docker-image
+          path: image.tar.gz
+
+  push:
+    name: Push to Docker Hub
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Download image artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: docker-image
+
+      - name: Load Docker image
+        run: gunzip -c image.tar.gz | docker load
+
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-      - name: Build the Docker image
-        run: docker buildx build --platform linux/arm64/v8 . --load --file Dockerfile --tag nikolasil/iliopoulosrent-frontend:latest
-      - name: Push Docker image to Docker Hub
-        run: docker push nikolasil/iliopoulosrent-frontend:latest
-      - name: Connect to ec2 instance and deploy
+
+      - name: Push Docker image
+        run: docker push $IMAGE_NAME:latest
+
+  deploy:
+    name: Deploy to EC2
+    runs-on: ubuntu-latest
+    needs: push
+
+    steps:
+      - name: SSH into EC2 and deploy container
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: 44.200.151.12
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_PRIVATE_KEY }}
           script: |
-            sudo docker stop iliopoulosrent-frontend || true
-            sudo docker rm iliopoulosrent-frontend || true
-            sudo docker image rm nikolasil/iliopoulosrent-frontend || true
-            sudo docker pull nikolasil/iliopoulosrent-frontend || true
-            sudo docker run -d --name iliopoulosrent-frontend -e NEXTAUTH_URL=https://iliopoulosrent.com -e NEXT_PUBLIC_SITE_URL=https://iliopoulosrent.com -p 8081:3000 nikolasil/iliopoulosrent-frontend:latest
+            set -e
+            echo "Stopping old container..."
+            sudo docker stop $CONTAINER_NAME || true
+            sudo docker rm $CONTAINER_NAME || true
+
+            echo "Removing old image..."
+            sudo docker rmi $IMAGE_NAME:latest || true
+
+            echo "Pulling new image..."
+            sudo docker pull $IMAGE_NAME:latest
+
+            echo "Running container..."
+            sudo docker run -d \
+              --name $CONTAINER_NAME \
+              -e NEXTAUTH_URL=$NEXTAUTH_URL \
+              -e NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL \
+              -p 8081:3000 \
+              $IMAGE_NAME:latest
