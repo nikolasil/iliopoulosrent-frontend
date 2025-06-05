@@ -9,49 +9,63 @@ env:
   CONTAINER_NAME: iliopoulosrent-frontend
   NEXTAUTH_URL: https://iliopoulosrent.com
   NEXT_PUBLIC_SITE_URL: https://iliopoulosrent.com
+  SHORT_SHA: ${{ github.sha }}
 
 jobs:
   build:
-    name: Build Docker Image
+    name: 🏗️ Build Docker Image
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      - name: Build Docker image (no push yet)
+      - name: Build Docker image
         run: |
           docker buildx build \
             --platform linux/arm64/v8 \
             --file Dockerfile \
             --tag $IMAGE_NAME:latest \
+            --tag $IMAGE_NAME:${SHORT_SHA::7} \
             --output type=docker .
 
-      - name: Save image to workspace
-        run: docker save $IMAGE_NAME:latest | gzip > image.tar.gz
+      - name: Save and compress Docker image
+        run: |
+          docker save $IMAGE_NAME:latest | gzip > ${{ runner.temp }}/image-latest.tar.gz
+          docker save $IMAGE_NAME:${SHORT_SHA::7} | gzip > ${{ runner.temp }}/image-sha.tar.gz
 
-      - name: Upload image artifact
+      - name: Upload Docker image artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: docker-image
-          path: image.tar.gz
+          name: docker-images
+          path: |
+            ${{ runner.temp }}/image-latest.tar.gz
+            ${{ runner.temp }}/image-sha.tar.gz
 
   push:
-    name: Push to Docker Hub
+    name: 🚀 Push to Docker Hub
     runs-on: ubuntu-latest
     needs: build
 
     steps:
-      - name: Download image artifact
+      - name: Download Docker image artifacts
         uses: actions/download-artifact@v4
         with:
-          name: docker-image
+          name: docker-images
 
-      - name: Load Docker image
-        run: gunzip -c image.tar.gz | docker load
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v2
+
+      - name: Decompress and load Docker images
+        run: |
+          gunzip -c image-latest.tar.gz | docker load
+          gunzip -c image-sha.tar.gz | docker load
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
@@ -59,37 +73,49 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Push Docker image
-        run: docker push $IMAGE_NAME:latest
+      - name: Push Docker images
+        run: |
+          docker push $IMAGE_NAME:latest
+          docker push $IMAGE_NAME:${SHORT_SHA::7}
 
   deploy:
-    name: Deploy to EC2
+    name: ⚙️ Deploy to EC2
     runs-on: ubuntu-latest
     needs: push
 
     steps:
-      - name: SSH into EC2 and deploy container
+      - name: SSH and deploy
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: 44.200.151.12
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_PRIVATE_KEY }}
           script: |
-            set -e
-            echo "Stopping old container..."
+            set -eo pipefail
+
+            IMAGE_TAG=${SHORT_SHA::7}
+
+            echo "Pulling new image..."
+            sudo docker pull $IMAGE_NAME:$IMAGE_TAG
+
+            echo "Stopping current container (if exists)..."
             sudo docker stop $CONTAINER_NAME || true
             sudo docker rm $CONTAINER_NAME || true
 
-            echo "Removing old image..."
-            sudo docker rmi $IMAGE_NAME:latest || true
-
-            echo "Pulling new image..."
-            sudo docker pull $IMAGE_NAME:latest
-
-            echo "Running container..."
-            sudo docker run -d \
+            echo "Starting new container..."
+            if ! sudo docker run -d \
               --name $CONTAINER_NAME \
               -e NEXTAUTH_URL=$NEXTAUTH_URL \
               -e NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL \
               -p 8081:3000 \
-              $IMAGE_NAME:latest
+              $IMAGE_NAME:$IMAGE_TAG; then
+
+              echo "❌ Failed to start new container! Attempting rollback to 'latest'..."
+              sudo docker pull $IMAGE_NAME:latest
+              sudo docker run -d \
+                --name $CONTAINER_NAME \
+                -e NEXTAUTH_URL=$NEXTAUTH_URL \
+                -e NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL \
+                -p 8081:3000 \
+                $IMAGE_NAME:latest
+            fi
