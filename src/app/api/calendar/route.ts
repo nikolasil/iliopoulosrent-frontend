@@ -20,38 +20,11 @@ const icalSources = [
   },
 ];
 
-function parseAirbnb(data: string) {
-  const jcalData = ICAL.parse(data);
-  const comp = new ICAL.Component(jcalData);
-  const vevents = comp.getAllSubcomponents('vevent');
-
-  return vevents.map((vevent) => {
-    const event = new ICAL.Event(vevent);
-    return {
-      start: event.startDate.toJSDate().toISOString(),
-      end: event.endDate.toJSDate().toISOString(),
-    };
-  });
+function toDateOnly(date: Date): string {
+  return date.toISOString().split('T')[0];
 }
 
-function parseBooking(data: string) {
-  const jcalData = ICAL.parse(data);
-  const comp = new ICAL.Component(jcalData);
-  const vevents = comp.getAllSubcomponents('vevent');
-
-  return vevents.map((vevent) => {
-    const event = new ICAL.Event(vevent);
-    // Booking often uses all-day format where endDate is exclusive
-    const start = event.startDate.toJSDate();
-    const end = new Date(event.endDate.toJSDate().getTime() - 1); // Make it inclusive
-    return {
-      start: start.toISOString(),
-      end: end.toISOString(),
-    };
-  });
-}
-
-function parseVrbo(data: string) {
+function parseEvents(data: string, sourceName: string) {
   const jcalData = ICAL.parse(data);
   const comp = new ICAL.Component(jcalData);
   const vevents = comp.getAllSubcomponents('vevent');
@@ -59,12 +32,54 @@ function parseVrbo(data: string) {
   return vevents.map((vevent) => {
     const event = new ICAL.Event(vevent);
     const start = event.startDate.toJSDate();
-    const end = new Date(event.endDate.toJSDate().getTime() - 1); // VRBO also uses exclusive end date
+    let end = event.endDate.toJSDate();
+
+    // Adjust for exclusive end dates (common in booking/vrbo)
+    if (sourceName !== 'airbnb') {
+      end = new Date(end.getTime() - 1);
+    }
+
     return {
-      start: start.toISOString(),
-      end: end.toISOString(),
+      start: toDateOnly(start),
+      end: toDateOnly(end),
+      source: [sourceName],
     };
   });
+}
+
+function mergeRanges(
+  ranges: { start: string; end: string; source: string[] }[]
+) {
+  if (ranges.length === 0) return [];
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const todayStr = toDateOnly(today);
+
+  // Filter out ranges that have already ended before today
+  ranges = ranges.filter((range) => range.end >= todayStr);
+
+  // Sort by start date
+  ranges.sort(
+    (a, b) => new Date(a.start).getTime() - new Date(b.start).getTime()
+  );
+
+  const merged: typeof ranges = [ranges[0]];
+
+  for (let i = 1; i < ranges.length; i++) {
+    const last = merged[merged.length - 1];
+    const current = ranges[i];
+
+    if (current.start <= last.end) {
+      // Merge overlapping/adjacent ranges
+      last.end = current.end > last.end ? current.end : last.end;
+      last.source = Array.from(new Set([...last.source, ...current.source]));
+    } else {
+      merged.push(current);
+    }
+  }
+
+  return merged;
 }
 
 export async function GET() {
@@ -72,16 +87,19 @@ export async function GET() {
 
   if (cachedData && now - lastFetched < CACHE_DURATION) {
     const parsed = JSON.parse(cachedData);
-    return new Response(JSON.stringify({
-      lastFetched: parsed.lastFetched,
-      ranges: parsed.ranges,
-    }), {
-      status: 200,
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Cache': 'HIT',
-      },
-    });
+    return new Response(
+      JSON.stringify({
+        lastFetched: parsed.lastFetched,
+        ranges: parsed.ranges,
+      }),
+      {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Cache': 'HIT',
+        },
+      }
+    );
   }
 
   try {
@@ -94,25 +112,17 @@ export async function GET() {
       )
     );
 
-    let ranges: { start: string; end: string }[] = [];
+    let allRanges: { start: string; end: string; source: string[] }[] = [];
 
     for (const { name, data } of responses) {
-      switch (name) {
-        case 'airbnb':
-          ranges = ranges.concat(parseAirbnb(data));
-          break;
-        case 'booking':
-          ranges = ranges.concat(parseBooking(data));
-          break;
-        case 'vrbo':
-          ranges = ranges.concat(parseVrbo(data));
-          break;
-      }
+      allRanges = allRanges.concat(parseEvents(data, name));
     }
+
+    const mergedRanges = mergeRanges(allRanges);
 
     const responseBody = {
       lastFetched: new Date(now).toISOString(),
-      ranges,
+      ranges: mergedRanges,
     };
 
     const json = JSON.stringify(responseBody);
