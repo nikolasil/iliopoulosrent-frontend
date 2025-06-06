@@ -11,11 +11,6 @@ interface BookingRange {
   end: Date;
 }
 
-interface BookingRange {
-  start: Date;
-  end: Date;
-}
-
 const MyCalendar = ({ apiUrl }: { apiUrl: string }) => {
   const [bookedRanges, setBookedRanges] = useState<BookingRange[]>([]);
   const [lastFetched, setLastFetched] = useState<Date | null>(null);
@@ -63,10 +58,26 @@ const MyCalendar = ({ apiUrl }: { apiUrl: string }) => {
       (range) => date >= range.start && date <= range.end
     );
   };
+  
+  const isBeforeToday = (date: Date) => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // Normalize to start of day
+    return date < today;
+  };
 
-  const tileClassName = ({ date, view }: { date: Date; view: string }) => {
-    if (view !== 'month') return '';
-    return isDateBooked(date) ? 'booked-date' : 'available-date';
+  const tileContent = ({ date, view }: { date: Date; view: string }) => {
+    if (view !== 'month') return null;
+
+    const booked = isDateBooked(date) || isBeforeToday(date);
+
+    return (
+      <div
+        className={`date-number ${booked ? 'booked' : 'available'}`}
+        aria-label={booked ? 'Booked date' : 'Available date'}
+      >
+        {booked ? '-' + date.getDate() + '-' : date.getDate()}
+      </div>
+    );
   };
 
   return (
@@ -99,7 +110,7 @@ const MyCalendar = ({ apiUrl }: { apiUrl: string }) => {
       {!loading && !error && (
         <>
           <Calendar
-            tileClassName={tileClassName}
+            tileContent={tileContent}
             minDate={new Date()}
             calendarType="gregory"
             showNeighboringMonth
@@ -116,17 +127,39 @@ const MyCalendar = ({ apiUrl }: { apiUrl: string }) => {
       <style jsx global>{`
         .react-calendar {
           width: 100% !important;
+          font-weight: 400;
         }
-        .react-calendar__tile.booked-date {
-          background-color: #e57373;
+        /* Hide default date number since we add custom */
+        .react-calendar__tile > abbr {
+          visibility: hidden;
         }
-        .react-calendar__tile.booked-date:hover {
-          background-color: #ef5350;
+        .date-number {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          // font-weight: 600;
+        }
+        /* Booked date: red number */
+        .date-number.booked {
+          color: rgb(100, 0, 0); 
+          font-size: 0.8rem;
+        }
+        /* Available date: green number */
+        .date-number.available {
+          color:rgb(0, 100, 0);
+          font-weight: 600;
+          font-size: 1rem;
         }
 
         @media (max-width: 600px) {
           .react-calendar {
             font-size: 0.75rem;
+          }
+          .date-number {
+            font-size: 0.85rem;
           }
         }
       `}</style>
