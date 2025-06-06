@@ -20,12 +20,13 @@ const icalSources = [
   },
 ];
 
-function toUTCDateOnly(date: Date): string {
-  const year = date.getUTCFullYear();
-  const month = String(date.getUTCMonth() + 1).padStart(2, '0');
-  const day = String(date.getUTCDate()).padStart(2, '0');
-  return `${year}-${month}-${day}`;
+// Converts to full ISO string at midnight UTC (e.g. "2025-06-06T00:00:00Z")
+function toUTCDateISO(date: Date): string {
+  return new Date(
+    Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate())
+  ).toISOString();
 }
+
 function parseEvents(data: string, sourceName: string) {
   const jcalData = ICAL.parse(data);
   const comp = new ICAL.Component(jcalData);
@@ -42,8 +43,8 @@ function parseEvents(data: string, sourceName: string) {
     }
 
     return {
-      start: toUTCDateOnly(start),
-      end: toUTCDateOnly(end),
+      start: toUTCDateISO(start),
+      end: toUTCDateISO(end),
       source: [sourceName],
     };
   });
@@ -55,11 +56,10 @@ function mergeRanges(
   if (ranges.length === 0) return [];
 
   const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  const todayStr = toUTCDateOnly(today);
+  const todayISO = toUTCDateISO(today);
 
-  // Filter out ranges that have already ended before today
-  ranges = ranges.filter((range) => range.end >= todayStr);
+  // Filter out ranges that already ended before today
+  ranges = ranges.filter((range) => range.end >= todayISO);
 
   // Sort by start date
   ranges.sort(
@@ -73,7 +73,6 @@ function mergeRanges(
     const current = ranges[i];
 
     if (current.start <= last.end) {
-      // Merge overlapping/adjacent ranges
       last.end = current.end > last.end ? current.end : last.end;
       last.source = Array.from(new Set([...last.source, ...current.source]));
     } else {
