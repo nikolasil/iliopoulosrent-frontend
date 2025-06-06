@@ -20,10 +20,12 @@ const icalSources = [
   },
 ];
 
-function toDateOnly(date: Date): string {
-  return date.toISOString().split('T')[0];
+function toUTCDateOnly(date: Date): string {
+  const year = date.getUTCFullYear();
+  const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+  const day = String(date.getUTCDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
 }
-
 function parseEvents(data: string, sourceName: string) {
   const jcalData = ICAL.parse(data);
   const comp = new ICAL.Component(jcalData);
@@ -40,8 +42,8 @@ function parseEvents(data: string, sourceName: string) {
     }
 
     return {
-      start: toDateOnly(start),
-      end: toDateOnly(end),
+      start: toUTCDateOnly(start),
+      end: toUTCDateOnly(end),
       source: [sourceName],
     };
   });
@@ -54,7 +56,7 @@ function mergeRanges(
 
   const today = new Date();
   today.setHours(0, 0, 0, 0);
-  const todayStr = toDateOnly(today);
+  const todayStr = toUTCDateOnly(today);
 
   // Filter out ranges that have already ended before today
   ranges = ranges.filter((range) => range.end >= todayStr);
