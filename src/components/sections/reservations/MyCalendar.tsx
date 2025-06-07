@@ -11,25 +11,44 @@ interface BookingRange {
   end: Date;
 }
 
-// Helper: Convert a date string (e.g., "2025-06-06") to a UTC Date
-const toUTCDate = (dateStr: string): Date => {
-  const [year, month, day] = dateStr.split('T')[0].split('-').map(Number);
-  return new Date(Date.UTC(year, month - 1, day));
+// Converts "YYYY-MM-DD" to a JS Date (local time, no timezones involved)
+const toDate = (dateStr: string): Date => {
+  const [year, month, day] = dateStr.split('-').map(Number);
+  return new Date(year, month - 1, day);
 };
 
-// Helper: Compare only by date (ignoring time)
+// Checks if a date is between start and end, inclusive
 const isSameOrBetween = (target: Date, start: Date, end: Date): boolean => {
-  const d = new Date(
-    Date.UTC(target.getFullYear(), target.getMonth(), target.getDate())
-  );
-  const s = new Date(
-    Date.UTC(start.getFullYear(), start.getMonth(), start.getDate())
-  );
-  const e = new Date(
-    Date.UTC(end.getFullYear(), end.getMonth(), end.getDate())
-  );
-  return d > s && d <= e;
+  const t = new Date(target.getFullYear(), target.getMonth(), target.getDate());
+  const s = new Date(start.getFullYear(), start.getMonth(), start.getDate());
+  const e = new Date(end.getFullYear(), end.getMonth(), end.getDate());
+  return t >= s && t <= e;
 };
+
+function formatRelativeTime(date: Date): string {
+  const now = new Date();
+  const diffMs = now.getTime() - date.getTime();
+  const diffSec = Math.floor(diffMs / 1000);
+
+  const units: [Intl.RelativeTimeFormatUnit, number][] = [
+    ['year', 60 * 60 * 24 * 365],
+    ['month', 60 * 60 * 24 * 30],
+    ['day', 60 * 60 * 24],
+    ['hour', 60 * 60],
+    ['minute', 60],
+    ['second', 1],
+  ];
+
+  for (const [unit, secondsInUnit] of units) {
+    const value = Math.floor(diffSec / secondsInUnit);
+    if (value >= 1) {
+      const rtf = new Intl.RelativeTimeFormat(undefined, { numeric: 'auto' });
+      return rtf.format(-value, unit);
+    }
+  }
+
+  return 'just now';
+}
 
 const MyCalendar = ({ apiUrl }: { apiUrl: string }) => {
   const [bookedRanges, setBookedRanges] = useState<BookingRange[]>([]);
@@ -53,19 +72,15 @@ const MyCalendar = ({ apiUrl }: { apiUrl: string }) => {
         } = await res.json();
 
         const parsedRanges = data.ranges.map((range) => ({
-          start: toUTCDate(range.start),
-          end: toUTCDate(range.end),
+          start: toDate(range.start),
+          end: toDate(range.end),
         }));
 
         setBookedRanges(parsedRanges);
-        setLastFetched(toUTCDate(data.lastFetched));
-        setLoading(false);
+        setLastFetched(new Date(data.lastFetched));
       } catch (err: unknown) {
-        if (err instanceof Error) {
-          setError(err.message);
-        } else {
-          setError('Unknown error fetching availability');
-        }
+        setError(err instanceof Error ? err.message : 'Unknown error');
+      } finally {
         setLoading(false);
       }
     };
@@ -81,13 +96,13 @@ const MyCalendar = ({ apiUrl }: { apiUrl: string }) => {
 
   const isBeforeToday = (date: Date) => {
     const now = new Date();
-    const todayUTC = new Date(
-      Date.UTC(now.getFullYear(), now.getMonth(), now.getDate())
-    );
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     const target = new Date(
-      Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())
+      date.getFullYear(),
+      date.getMonth(),
+      date.getDate()
     );
-    return target < todayUTC;
+    return target < today;
   };
 
   const tileContent = ({ date, view }: { date: Date; view: string }) => {
@@ -143,7 +158,7 @@ const MyCalendar = ({ apiUrl }: { apiUrl: string }) => {
           />
           {lastFetched && (
             <Typography variant="caption" color="text.secondary" mt={1}>
-              Last updated: {lastFetched.toUTCString()}
+              {t('reservations.lastUpdated')} {formatRelativeTime(lastFetched)}
             </Typography>
           )}
         </>

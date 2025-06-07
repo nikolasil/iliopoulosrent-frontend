@@ -20,13 +20,13 @@ const icalSources = [
   },
 ];
 
-// Converts to full ISO string at midnight UTC (e.g. "2025-06-06T00:00:00Z")
-function toUTCDateISO(date: Date): string {
-  return new Date(
-    Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate())
-  ).toISOString();
+function toDateOnly(date: Date): string {
+  const yyyy = date.getFullYear();
+  const mm = String(date.getMonth() + 1).padStart(2, '0');
+  const dd = String(date.getDate()).padStart(2, '0');
+  return `${yyyy}-${mm}-${dd}`;
 }
-
+// Parse a single .ics string into date ranges
 function parseEvents(data: string, sourceName: string) {
   const jcalData = ICAL.parse(data);
   const comp = new ICAL.Component(jcalData);
@@ -35,16 +35,15 @@ function parseEvents(data: string, sourceName: string) {
   return vevents.map((vevent) => {
     const event = new ICAL.Event(vevent);
     const start = event.startDate.toJSDate();
-    let end = event.endDate.toJSDate();
+    const end = event.endDate.toJSDate();
 
-    // Adjust for exclusive end dates (common in booking/vrbo)
-    if (sourceName !== 'airbnb') {
-      end = new Date(end.getTime() - 1);
-    }
+    // Subtract one day from end (iCal end is exclusive)
+    const adjustedEnd = new Date(end);
+    adjustedEnd.setUTCDate(adjustedEnd.getUTCDate() - 1);
 
     return {
-      start: toUTCDateISO(start),
-      end: toUTCDateISO(end),
+      start: toDateOnly(start),
+      end: toDateOnly(adjustedEnd),
       source: [sourceName],
     };
   });
@@ -55,13 +54,12 @@ function mergeRanges(
 ) {
   if (ranges.length === 0) return [];
 
-  const today = new Date();
-  const todayISO = toUTCDateISO(today);
+  const today = toDateOnly(new Date());
 
-  // Filter out ranges that already ended before today
-  ranges = ranges.filter((range) => range.end >= todayISO);
+  // Remove past ranges
+  ranges = ranges.filter((range) => range.end >= today);
 
-  // Sort by start date
+  // Sort by start
   ranges.sort(
     (a, b) => new Date(a.start).getTime() - new Date(b.start).getTime()
   );

@@ -87,7 +87,8 @@
   "reservations": {
     "title": "Reservation",
     "subTitle": "Our accommodation is available for rent all year round. You can book your stay by contacting us via phone, email or using any of the platforms below.",
-    "availability": "Availability Calendar"
+    "availability": "Availability Calendar",
+    "lastUpdated": "Last Updated:"
   },
   "contact": {
     "title": "Contact",
