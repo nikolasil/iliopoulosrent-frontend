@@ -5,8 +5,8 @@ on:
     branches: ["main"]
 
 env:
-  IMAGE_NAME: nikolasil/iliopoulosrent-frontend
-  CONTAINER_NAME: iliopoulosrent-frontend
+  IMAGE_NAME: nikolasil/iliopoulosrent
+  CONTAINER_NAME: iliopoulosrent
   NEXTAUTH_URL: https://iliopoulosrent.com
   NEXT_PUBLIC_SITE_URL: https://iliopoulosrent.com
   SHORT_SHA: ${{ github.sha }}
