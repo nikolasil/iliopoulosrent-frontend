@@ -25,6 +25,7 @@ import CollectionsIcon from '@mui/icons-material/Collections';
 import BedroomParentIcon from '@mui/icons-material/BedroomParent';
 import { useTranslations } from 'next-intl';
 import { locales } from '@/i18n/routing';
+import Cookies from 'js-cookie';
 
 type MenuDrawerProps = {
   open: boolean;
@@ -208,9 +209,12 @@ const MenuDrawer: React.FC<MenuDrawerProps> = ({ open, onClose }) => {
                 const newLang = event.target.value;
                 setSelectedLang(newLang);
 
-                // Replace locale segment in pathname without reload
+                // ✅ Set cookie to persist language
+                Cookies.set('NEXT_LOCALE', newLang, { expires: 365 });
+
+                // ✅ Replace locale segment in URL
                 const segments = pathname.split('/');
-                if (segments[1] === t('id')) {
+                if (locales.some((l) => l.locale === segments[1])) {
                   segments[1] = newLang;
                 }
                 const newPath = segments.join('/') || '/';
